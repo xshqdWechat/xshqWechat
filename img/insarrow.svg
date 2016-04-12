@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="440" height="218" viewBox="0 0 44 118">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #00b7ee;
+      }
+
+      .cls-1 {
+        fill-rule: evenodd;
+      }
+		<filter id="Gaussian_Blur">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="3"></feGaussianBlur>
+</filter>
+    </style>
+  </defs>
+  <g>
+    <path style=" filter:url(#Gaussian_Blur)" d="M10.238,8.761 L22.138,-0.312 L34.129,8.623 L34.566,96.201 L10.676,96.338 L10.238,8.761 Z" class="cls-1"/>
+<!--    <circle cx="22" cy="96" r="22" class="cls-2"/>-->
+  </g>
+</svg>

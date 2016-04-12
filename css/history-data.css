@@ -1,0 +1,166 @@
+.dataSearch {
+	width: 100%;
+	background-color: #f05560;
+	color: #fff;
+	font-size: 16px;
+	height: 49px;
+	line-height: 49px;
+	position: fixed;
+	top:0;
+	z-index: 2;
+	box-shadow: 0 3px 3px #dedede;
+	border-top: 1px solid #9c373e;
+	border-bottom: 1px solid #9c373e;
+	text-align: left;
+}
+.dataSearch .dataselTil{
+	padding-top: 4px;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: normal;
+	opacity: .86;
+}
+.dataSearch hr{
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid #f95f6a;
+	border-bottom: none;
+}
+
+.datalist {
+	margin-top: 49px;
+}
+
+.his-data dt {
+	font-weight: bold;
+	font-size: 12px;
+	color: #666;
+	font-family: '微软雅黑';
+	height: 16px;
+	line-height: 16px;
+	padding: 0 16px;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #fafafa;
+}
+
+.his-data dt span {
+	color: #448aca;
+	margin-left: 8px;
+}
+
+.his-data .tb-box {
+	width: 100%;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.his-data .tb-box .tb-row {
+	height: 54px;
+}
+
+.his-data .tb-box .tb-row .tb-cell:first-child {
+	width: 150px;
+	padding-left: 16px;
+}
+
+.his-data .tb-box .tb-row .tb-cell:nth-child(2) {
+	text-align: left;
+	width: 80px;
+}
+
+.his-data .tb-box .tb-row .tb-cell:last-child {
+	font-size: 14px;
+	color: #bfbfbf;
+}
+
+.his-data dd {
+/*	padding: 0 16px;*/
+}
+
+.his-data .tb-box>.tb-row .tb-cell {
+	vertical-align: middle;
+	color: #666;
+	font-size: 16px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.his-data .tb-box .tb-row:last-child .tb-cell {
+	border: none;
+}
+
+.his-data .tz,
+.his-data .bmi,
+.his-data .sf,
+.his-data .gg,
+.his-data .jr,
+.his-data .kll,
+.his-data .zf {
+	position: relative;
+	padding-left: 36px;
+	color: #999;
+	font-size: 14px;
+}
+
+.his-data .tz:before,
+.his-data .bmi:before,
+.his-data .sf:before,
+.his-data .gg:before,
+.his-data .jr:before,
+.his-data .kll:before,
+.his-data .zf:before {
+	content: '\20';
+	width: 20px;
+	height: 20px;
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	background: url(../img/hisdataicon.png) no-repeat;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .bmi:before {
+	background-position: 0 -20px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .sf:before {
+	background-position: 0 -40px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .gg:before {
+	background-position: 0 -60px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .jr:before {
+	background-position: 0 -80px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .kll:before {
+	background-position: 0 -100px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+
+.his-data .zf:before {
+	background-position: 0 -120px;
+	-webkit-background-size: 20px 140px;
+	background-size: 20px 140px;
+}
+.dataSelinput{
+	position: absolute;
+	right: 0;
+	opacity: 0;
+	width: 60px;
+	height: 40px;
+	z-index: 3;
+}

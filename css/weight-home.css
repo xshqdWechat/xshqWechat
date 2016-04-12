@@ -1,0 +1,82 @@
+.weightInstrument {
+	width: 100%;
+	height: 225px;
+	background-color: #448aca;
+	position: relative;
+	padding: 16px 8px;
+	overflow: hidden;
+}
+
+.insPanel {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	-webkit-transform: translateX(-50%) ;
+	transform: translateX(-50%);
+	width: 359px;
+	height: 180px;
+	background: url(../img/instrumentPanel.png) no-repeat;
+	-webkit-background-size: 359px 180px;
+	background-size: 359px 180px;
+	color: #fff;
+	text-align: center;
+}
+
+@media only screen and (max-width:320px) {
+	.insPanel {
+		width: 304px;
+		height: 152px;
+		background: url(../img/instrumentPanel.png) no-repeat;
+		-webkit-background-size: 304px 152px;
+		background-size: 304px 152px;
+	}
+}
+
+.insValue {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.vmbox {
+	height: 100%;
+	width: 10px;
+	line-height: 255px;
+	display: inline;
+	transition:all 2s ease;
+}
+
+@media only screen and (max-width:320px){
+	.vmbox{
+		line-height: 200px;
+	}
+}
+
+.insArrow {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 22px;
+	height: 59px;
+	-webkit-transform: translate(-50%, 11px) rotate(-90deg);
+	transform: translate(-50%, 11px) rotate(-90deg);
+	-webkit-transform-origin: center 48px;
+	transform-origin: center 48px;
+	background: url(../img/instrumentArrow.png) no-repeat;
+	-webkit-background-size: 22px 59px;
+	background-size: 22px 59px;
+	-webkit-transition:all 2s ease;
+	transition:all 2s ease;
+}
+
+
+.lasttime{
+	opacity: 0;
+	transition:all 2s ease;
+}
+
+.lastWeightData{
+	padding-top: 16px;
+}
+
+
+/*.insValue {}*/

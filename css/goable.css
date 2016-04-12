@@ -1,0 +1,361 @@
+* {
+	-webkit-tap-highlight-color: transparent;
+	outline: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Helvetica, Microsoft YaHei, Arial;
+}
+
+body,
+ul,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+img,
+p,
+dl,
+dt,
+dd {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.body-box {
+	padding: 16px 8px;
+}
+
+
+/*浮动*/
+
+.poa {
+	position: absolute;
+}
+
+.por {
+	position: relative;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clear {
+	clear: both;
+	height: 1px;
+	line-height: 1px;
+	font-size: 1px;
+	margin-top: -1px;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.dib {
+	display: inline-block;
+}
+
+.dn {
+	display: none;
+}
+
+.db {
+	display: block;
+}
+.tb-box{
+	display: table;
+}
+.tb-row{
+	display: table-row;
+}
+.tb-cell{
+	display: table-cell;
+}
+
+/*流体设置*/
+
+.box-state {
+	display: -webkit-box;
+	display: -ms-box;
+	display: box;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+}
+
+.flex-1 {
+	display: block;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	-webkit-box-flex: 1;
+	-ms-box-flex: 1;
+	box-flex: 1;
+}
+
+.justify {
+	justify-content: space-between;
+}
+
+.w100p {
+	width: 100%;
+}
+
+
+/*颜色样式*/
+
+.op54 {
+	opacity: 0.54;
+}
+
+.op86 {
+	opacity: 0.86;
+}
+
+.fwn {
+	font-weight: normal;
+}
+
+.fz-white {
+	color: #fff;
+}
+
+.fz-title {
+	color: #4f4f4f;
+}
+
+.fz-hint {
+	color: #b2b2b2;
+}
+
+.fz-imp {
+	color: #00b7ee;
+}
+
+.bg-imp {
+	background-color: #00b7ee;
+}
+
+.fz-dataDb {
+	color: #448aca;
+}
+
+.bg-dataDb {
+	background-color: #448aca;
+}
+
+.bg-gray {
+	background-color: #f1f1f1;
+}
+
+.fz-dataLr {
+	color: #f05560;
+}
+
+.bg-dataLr {
+	background-color: #f05560;
+}
+
+.bor-top {
+	border-top: 1px solid #e8e8e8;
+}
+
+
+/*字号*/
+
+.fs-12 {
+	font-size: 12px;
+}
+
+.fs-14 {
+	font-size: 14px;
+}
+
+.fs-15 {
+	font-size: 15px;
+}
+
+.fs-16 {
+	font-size: 16px;
+}
+
+.fs-18 {
+	font-size: 18px;
+}
+
+.fs-28 {
+	font-size: 28px;
+}
+
+.pt-8 {
+	padding-top: 8px;
+}
+
+.mt-8 {
+	margin-top: 8px;
+}
+
+.mt16 {
+	margin-top: 16px;
+}
+
+.ml8 {
+	margin-left: 8px;
+}
+.ml16{
+	margin-left: 16px;
+}
+
+.ml4 {
+	margin-left: 4px;
+}
+
+
+/*对齐样式*/
+
+.tac {
+	text-align: center;
+}
+
+.tal {
+	text-align: left;
+}
+
+.tar {
+	text-align: right;
+}
+
+.box-c {
+	margin: 0 auto;
+	display: block;
+}
+
+
+/*模块样式*/
+
+.card-module {
+	margin-top: 16px;
+	padding: 16px 8px;
+	border-radius: 4px;
+	border: 1px solid #dfdfdf;
+	-webkit-box-shadow: 0 5px 4px #ededed;
+	box-shadow: 0 5px 4px #ededed;
+}
+
+.card-module .head {
+	height: 25px;
+	line-height: 25px;
+}
+
+.card-module .content {
+	margin: 16px 0;
+}
+
+
+/*icon*/
+
+.previous:before,
+.next:before {
+	display: inline-block;
+	content: ' ';
+	background: url(../img/lt.png) no-repeat;
+	-webkit-background-size: 6px 12px;
+	background-size: 6px 12px;
+	width: 6px;
+	height: 12px;
+	cursor: pointer;
+}
+
+.next:before {
+	background: url(../img/rt.png) no-repeat;
+	-webkit-background-size: 6px 12px;
+	background-size: 6px 12px;
+	cursor: pointer;
+}
+
+span.heavy,
+span.light {
+	position: relative;
+	padding-left: 14px;
+	color: #fcff00;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+span.light {
+	color: #40ff7a;
+}
+
+span.heavy:before,
+span.light:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	-webkit-transform: translateY(-46%);
+	transform: translateY(-46%);
+	display: inline-block;
+	width: 12px;
+	height: 11px;
+	background: url(../img/insarrow.png) no-repeat;
+	-webkit-background-size: 12px 22px;
+	background-size: 12px 22px;
+}
+
+span.light:before {
+	background-position: 0 -11px;
+	-webkit-background-size: 12px 22px;
+	background-size: 12px 22px;
+}
+
+span.dataSel{
+/*	width: 17px;*/
+/*	height: 17px;*/
+	top: 50%;
+	right: 16px;
+	-webkit-transform: translateY(-42%);
+	transform: translateY(-42%);
+	position: absolute;
+}
+span.dataSel:before {
+	content: '';
+	display: inline-block;
+	width: 17px;
+	height: 17px;
+	background: url(../img/dataSel.png) no-repeat;
+	-webkit-background-size: 17px 17px;
+	background-size: 17px 17px;
+}
+
+
+/*width*/
+
+.w120 {
+	width: 120px;
+	display: inline-block;
+}

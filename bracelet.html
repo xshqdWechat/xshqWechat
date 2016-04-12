@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Untitled Document</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link href="css/goable.css" rel="stylesheet">
+	<link href="css/blactlet-home.css" rel="stylesheet">
+
+	<!--	chart.js-->
+<!--	<script type="text/javascript" src="lib/Chart.js-master/Chart.js"></script>-->
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Core.js"></script>
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Doughnut.js"></script>
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Line.js"></script>
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript" src="js/canvas.js"></script>
+	<script type="text/javascript" src="js/myChart.js"></script>
+</head>
+
+<body>
+	<div class="body-box">
+		<div class="headButton">
+			<ul>
+				<li>
+					<a href="">睡眠</a>
+					<a href="" class="sport">运动</a>
+				</li>
+				<li class="tar">
+					<div class="light-btn off">
+						<div class="light-bg box-state">
+							<span class="flex-1">OFF</span>
+							<span class="flex-1">ON</span>
+						</div>
+						<div class="swip-btn"></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="card-module">
+			<div class="head tac">
+				<span class="previous"></span><span class="fz-title fs-14 w120">今天</span><span class="next"></span>
+			</div>
+			<div class="content">
+<!--				<canvas id='runBar' style="width:100%" height="40"></canvas>-->
+				<div class="bg-dataCol bg-dataDb">
+					<div class="cur-dataCol bg-imp"></div>
+					<div class="text-data"><strong class="fz-white fz-28"><span class="run-steps">1222</span><span class="fs-12">步</span></strong></div>
+				</div>
+			</div>
+			<div class="footer">
+				<ul class="fs-12 fz-hint box-state">
+					<li class="flex-1">
+						<div class="run-mileage"><span class="run-mileage-meters">99999999999</span>米</div>
+					</li>
+					<li class="flex-1">
+						<div class="run-calorie"><span class="run-calorie-kils">9999.0</span>千卡</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="card-module">
+			<div class="head tac">
+				<span class="fz-title fs-14">睡眠统计</span>
+			</div>
+			<div class="content">
+				<div class="chart-box" style="display:none">
+					<div id='datashow' class="datashow"></div>
+					<canvas id='sleeping' width="153" height="153" class="box-c"></canvas>
+				</div>
+				<div class="tac fz-imp">目前无任何睡眠数据</div>
+			</div>
+			<div class="footer">
+				<ul class="box-state bor-top fs-28 sleeping">
+					<li class="tac flex-1">
+						<div class="fs-12 fz-hint"><span class="lump bg-dataDb"></span>深度睡眠</div>
+						<div class="fz-dataDb sleeping-dataHeight">0<span class="fs-12 fz-hint">分</span></div>
+					</li>
+					<li class="tac flex-1">
+						<div class="fs-12 fz-hint"><span class="lump bg-imp"></span>浅度睡眠</div>
+						<div class="fz-imp sleeping-dataHeight">0<span class="fs-12 fz-hint">分</span></div>
+					</li>
+					<li class="tac flex-1">
+						<div class="fs-12 fz-hint"><span class="lump bg-dataLr"></span>中间醒时间</div>
+						<div class="fz-dataLr sleeping-dataHeight">0<span class="fs-12 fz-hint">分</span></div>
+					</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+</body>
+
+</html>

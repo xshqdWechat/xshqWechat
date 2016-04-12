@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Untitled Document</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link href="css/goable.css" rel="stylesheet">
+	<link href="css/blactlet-home.css" rel="stylesheet">
+	<link href="css/weight-home.css" rel="stylesheet">
+	<link href="css/history-data.css" rel="stylesheet">
+	<!--	jquery-->
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<!--	chart.js-->
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Core.js"></script>
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Doughnut.js"></script>
+	<script type="text/javascript" src="lib/Chart.js-master/src/Chart.Line.js"></script>
+
+	<!--	mobiscroll-->
+	<link href="lib/mobiscroll/dev/css/mobiscroll.core-2.6.2.css" rel="stylesheet">
+	<link href="lib/mobiscroll/dev/css/mobiscroll.animation-2.6.2.css" rel="stylesheet">
+	<link href="lib/mobiscroll/dev/css/mobiscroll.wp-2.6.2.css" rel="stylesheet">
+	<script type="text/javascript" src="lib/mobiscroll/dev/js/mobiscroll.core-2.6.2.js"></script>
+	<script type="text/javascript" src="lib/mobiscroll/dev/js/mobiscroll.datetime-2.6.2.js"></script>
+
+	<!--	self-->
+
+	<script type="text/javascript" src="js/myChart.js"></script>
+
+</head>
+
+<body>
+	<div class="dataSearch">
+		<hr>
+		<div class="ml16">2016-06-13
+			<input type="text" id='searchData' value="" class="dataSelinput"><span class="dataSel"></span> </div>
+	</div>
+	<div class="datalist his-data">
+
+		<dl>
+			<dt></dt>
+<!--			<dt>2016-06-13<span>08:15:13</span></dt>-->
+			<dd class="tb-box">
+				<div class="tb-row">
+					<div class="tb-cell"><span class="tz">体重</span></div>
+					<div class="tb-cell">56.2kg</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="bmi">BMI</span></div>
+					<div class="tb-cell">23.5</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="sf">水分</span></div>
+					<div class="tb-cell">64%</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="gg">骨骼</span></div>
+					<div class="tb-cell">32%</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="jr">肌肉</span></div>
+					<div class="tb-cell">32%</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="kll">卡路里</span></div>
+					<div class="tb-cell">35C</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="zf">脂肪</span></div>
+					<div class="tb-cell">32%</div>
+					<div class="tb-cell">09:08:50</div>
+				</div>
+			</dd>
+			<dt></dt>
+<!--			<dt>2016-06-13<span>08:15:13</span></dt>-->
+			<dd class="tb-box">
+				<div class="tb-row">
+					<div class="tb-cell"><span class="tz">体重</span></div>
+					<div class="tb-cell">32.2kg</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="bmi">BMI</span></div>
+					<div class="tb-cell">1.65</div>
+				</div>
+			</dd>
+			<dt></dt>
+<!--			<dt>2016-06-13<span>08:15:13</span></dt>-->
+			<dd class="tb-box">
+				<div class="tb-row">
+					<div class="tb-cell"><span class="tz">体重</span></div>
+					<div class="tb-cell">32.2kg</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="bmi">BMI</span></div>
+					<div class="tb-cell">1.65</div>
+				</div>
+			</dd>
+			<dt></dt>
+<!--			<dt>2016-06-13<span>08:15:13</span></dt>-->
+			<dd class="tb-box">
+				<div class="tb-row">
+					<div class="tb-cell"><span class="tz">体重</span></div>
+					<div class="tb-cell">32.2kg</div>
+				</div>
+				<div class="tb-row">
+					<div class="tb-cell"><span class="bmi">BMI</span></div>
+					<div class="tb-cell">1.65</div>
+				</div>
+			</dd>
+		</dl>
+	</div>
+
+	<script type="text/javascript">
+		var myopt = {
+			preset: 'date',
+			theme: 'wp',
+			display: 'top',
+			dayText: '日',
+			monthText: '月',
+			yearText: '年',
+			setText: '确定',
+			cancelText: '取消',
+			dateFormat:'yy-mm-dd',
+			dateOrder:'yymmdd',
+			onSelect:function(valueText,inst){
+				console.log(valueText);
+			}
+		}
+		
+		$('#searchData').mobiscroll(myopt);
+//		$('#searchData').scroller(myopt).change(function(){
+//			console.log($(this).val());
+//		})
+//		console.log($('#searchData').scroller(myopt));
+	</script>
+</body>
+
+</html>
