@@ -1,0 +1,140 @@
+.heatRate {}
+
+.heatRate .head {
+    border-radius: 4px 4px 0 0;
+    background-color: #0eb0fd;
+    height: 74px;
+    padding: 16px;
+    background: #0eb0fd url(../img/hrhbg.png) repeat;
+    -webkit-background-size: 24px;
+    background-size: 24px;
+}
+
+.heatRate .content {
+    border-radius: 0 0 4px 4px;
+    background-color: #39425f;
+}
+
+.heartRate-date {
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.heartRate-date,
+.heartRate-value {
+    display: inline-block;
+    color: #fff;
+}
+
+.heartRate-date:after {
+    content: '.';
+    line-height: 70px;
+    opacity: 0;
+}
+
+.heartRate-value {
+    text-align: right;
+    font-size: 48px;
+    color: #ffffff;
+}
+
+.heartRate-value i {
+    font-size: 12px;
+    opacity: .8;
+}
+
+.hrFeedbackbar {}
+
+.heatRate .content {
+    padding: 16px;
+    padding-bottom: 32px;
+}
+
+.hrFeedbackbar {
+    position: relative;
+    color: #f2f5ff;
+    font-size: 12px;
+    height: 64px;
+    margin-top: 32px;
+    padding: 16px 0;
+}
+
+.heartrateCur {
+    display: block;
+    position: absolute;
+    top: 13px;
+    left: 12px;
+    height: 18px;
+    width: 8px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 2px #283252;
+}
+
+.hrFeedbackbar li {
+    width: 33.33333%;
+    height: 10px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 0 10px #283252;
+}
+
+.hrFeedbackbar li span {
+    display: block;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.hrFeedbackbar li i {
+    position: absolute;
+    bottom: -20px;
+    left: -6px;
+}
+
+.hrFeedbackbar li i:last-child {
+    left: auto;
+    right: -6px;
+}
+
+.hrFeedbackbar li:nth-child(1) {
+    background-color: #d25b5b;
+    border-radius: 5px 0 0 5px;
+}
+
+.hrFeedbackbar li:nth-child(2) {
+    background-color: #5ec4a6;
+}
+
+.hrFeedbackbar li:nth-child(3) {
+    background-color: #d2c85b;
+    border-radius: 0 5px 5px 0;
+}
+
+.hrFeedbackbtext {
+    background-color: #404b6c;
+    border-right: 4px;
+    padding: 8px;
+    color: #c4d3ff;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.heartRate-rang {
+    margin-top: 32px;
+    color: #b0bbdf;
+    font-size: 14px;
+}
+
+.hRRang {
+    margin-top: 16px;
+    height: 225px;
+/*    background-color: #414b69;*/
+}
+
+.hRRang canvas{
+    width: 100%;
+    height: 100%;
+}

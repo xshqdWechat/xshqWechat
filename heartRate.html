@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link href="css/goable.css" rel="stylesheet">
+    <link href="css/heartRate.css" rel="stylesheet">
+
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Core.js"></script>
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Doughnut.js"></script>
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Line.js"></script>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="js/heartRate.js"></script>
+</head>
+
+<body>
+    <div class="body-box">
+        <div class="heatRate">
+            <div class="head box-state">
+                <div class="heartRate-date flex-1">
+                    <span>心率时间 12:27</span>
+                </div>
+                <div class="heartRate-value flex-1"><span class="heartRateicon">76</span><i> bpm</i></div>
+            </div>
+            <div class="content">
+                <div class="heartRate-feedback">
+                    <div class="hrFeedbackbar">
+                        <ul>
+                            <li>
+                                <span>过缓</span>
+                            </li><li>
+                                <span>正常</span>
+                                <i>60</i>
+                                <i>100</i>
+                            </li><li>
+                                <span>过速</span>
+                            </li>
+                        </ul>
+                        <span class="heartrateCur"></span>
+                    </div>
+                    <div class="hrFeedbackbtext">
+                        心率处于正常水平，合理的生活习惯让你的心脏更加健康。
+                    </div>
+                </div>
+                <div class="heartRate-rang">
+                    当天心率范围
+                    <div class="hRRang">
+                        <canvas height="225" id='heartrate'></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var canvas = document.getElementById('heartrate');
+        var ctx = canvas.getContext('2d');
+        var dataset = {
+            data: [76, 66, 68, 50, 100, 68]
+        }
+        var hr = new HeartRate(ctx);
+        hr.draw(dataset);
+        console.log(hr);
+    </script>
+
+
+</body>
+
+</html>
