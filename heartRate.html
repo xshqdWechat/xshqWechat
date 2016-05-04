@@ -20,9 +20,9 @@
         <div class="heatRate">
             <div class="head box-state">
                 <div class="heartRate-date flex-1">
-                    <span>心率时间 12:27</span>
+                    <span>心率时间 <i class="hrtime"></i></span>
                 </div>
-                <div class="heartRate-value flex-1"><span class="heartRateicon">76</span><i> bpm</i></div>
+                <div class="heartRate-value flex-1"><span class="heartRateicon"></span><i> bpm</i></div>
             </div>
             <div class="content">
                 <div class="heartRate-feedback">
@@ -41,7 +41,6 @@
                         <span class="heartrateCur"></span>
                     </div>
                     <div class="hrFeedbackbtext">
-                        心率处于正常水平，合理的生活习惯让你的心脏更加健康。
                     </div>
                 </div>
                 <div class="heartRate-rang">
@@ -55,14 +54,26 @@
     </div>
 
     <script type="text/javascript">
+        var width = $('.hRRang').width();
+        $('#heartrate').attr('width', width);
         var canvas = document.getElementById('heartrate');
         var ctx = canvas.getContext('2d');
-        var dataset = {
-            data: [76, 66, 68, 50, 100, 68]
-        }
         var hr = new HeartRate(ctx);
+
+        var hrCur = new HeartCur();
+        var i = 120;
+        var dataset = [68, 120];
         hr.draw(dataset);
-        console.log(hr);
+        setInterval(function () {
+            var d = new Date();
+            var v = parseInt(Math.random() * i) + 1;
+            hrCur.setHRValueCur({
+                value: v,
+                date: d.getHours() + ':' + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ':' + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds())
+            });
+            hr.addData(v);
+
+        }, 1000)
     </script>
 
 
