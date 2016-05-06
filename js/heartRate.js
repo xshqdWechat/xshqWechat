@@ -1,42 +1,125 @@
-(function () {
-    var Root = this;
+//触击事件
+;(function ($) {
+    var touch = {},
+        touchTimeout;
 
-    var HeartRate = function (context) {
-        var heartrate = this;
-
-        this.canvas = context.canvas;
-        this.ctx = context;
-
-        var computeDimension = function (element, dimension) {
-            if (element['offset' + dimension]) {
-                return element['offset' + dimension];
-            } else {
-                return document.defaultView.getComputedStyle(element).getPropertyValue(dimension);
-            }
-        }
-
-        var width = this.width = computeDimension(this.canvas, 'Width') || context.canvas.width;
-
-        var height = this.height = computeDimension(this.canvas, 'Height') || context.canvas.height;
-
-
-        width = HeartRate.width = this.width = context.canvas.width;
-        height = HeartRate.height = this.height = context.canvas.height;
-
-        console.log(width);
-        console.log(height);
-
+    function parentIfText(node) {
+        return 'tagName' in node ? node : node.parentNode;
     }
 
-    HeartRate.additionX = 0;
-    HeartRate.default = {
-        bgColor: '#414b69',
-        distanceColor: '#525e7f',
-        safeLineColor: '#44576f',
-        lineColor: '#fff',
+    function swipeDirection(x1, x2, y1, y2) {
+        var xDelta = Math.abs(x1 - x2),
+            yDelta = Math.abs(y1 - y2);
+        return xDelta > yDelta ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+    }
+
+    var longTapDelay = 750,
+        longTapTimeout;
+
+    function lontTap() {
+        longTapTimeout = null;
+        if (touch.last) {
+            touch.el.trigger('longTap');
+            touch = {};
+        }
+    }
+
+    function cancelLongTap() {
+        if (longTapTimeout) clearTimeout(longTapTimeout);
+        longTapTimeout = null;
+    }
+
+    $(function () {
+        var now, delta;
+        $(document.body).on('touchstart', function (e) {
+                now = Date.now();
+                delta = now - (touch.last || now);
+                touch.el = $(parentIfText(e.target));
+                touchTimeout && clearTimeout(touchTimeout);
+                touch.x1 = e.originalEvent.touches[0].pageX;
+                touch.y1 = e.originalEvent.touches[0].pageY;
+                if (delta > 0 && delta < 250) touch.isDoubleTap = true;
+                touch.last = now;
+                longTapTimeout = setTimeout(lontTap, longTapDelay);
+            })
+            .on('touchmove', function (e) {
+                cancelLongTap();
+                touch.x2 = e.originalEvent.touches[0].pageX;
+                touch.y2 = e.originalEvent.touches[0].pageY;
+            })
+            .on('touchend', function (e) {
+                cancelLongTap();
+                if (touch.isDoubleTap) {
+                    touch.el.trigger('doubleTap');
+                    touch = {};
+                } else if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
+                    touch.el.trigger('swipe', [touch]) && touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)), [touch]);
+                    touch = {};
+                } else if ('last' in touch) {
+                    touch.el.trigger('tap');
+
+                    touchTimeout = setTimeout(function () {
+                        touchTimeout = null;
+                        touch.el.trigger('singleTap');
+                        touch = {};
+                    }, 250)
+                }
+            })
+            .on('touchcancel', function () {
+                if (touchTimeout) clearTimeout(touchTimeout);
+                if (longTapTimeout) clearTimeout(longTapTimeout);
+                longTapTimeout = touchTimeout = null;
+                touch = {};
+            })
+    })
+
+    ;
+    ['swipe', 'swipeLeft', 'swipeRight', 'swipUp', 'swipDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function (m) {
+        $.fn[m] = function (callback) {
+            return this.on(m, callback);
+        }
+    })
+
+}(jQuery))
+
+//心率图
+;(function () {
+    var Root = this;
+
+    function HeartRate(context, option) {
+        this.ctx = context;
+        this.x = 0;
+        this.canvas = this.ctx.canvas;
+        this.totalData = [];
+        this.options = HeartRate.extend(HeartRate.extend({}, HeartRate.defalut), option);
+        this.options.distance = this.canvas.width / this.options.distanceN;
+
+
+        this.getData = function () {
+            return this.totalData;
+        }
+
+        this.getDataLen = function () {
+            return this.totalData.length;
+        }
+
+        this.getOptions = function () {
+            return this.options;
+        }
+    }
+
+
+    HeartRate.defalut = {
+        distanceN: 10,
+        overMove: 6,
         pointFillColor: '#fff',
-        pointStrockColor: '#fff',
-        pointWidth: 4
+        pointStrokeColor: '#fff',
+        pointWidth: 5,
+        pointSrtokeWidth: 0,
+        lineColor: '#fff',
+        bgColor: '#414b69',
+        bgLineColor: '#525e7f',
+        bgSafeColor: '#44576f'
     }
 
     HeartRate.extend = function (orin, exten) {
@@ -48,156 +131,159 @@
         return orin;
     }
 
-    //    转换数据
-    HeartRate.heightPro = function heightPro(data) {
-        var dataAfter = [];
-
-        if (data.length === undefined) {
-            data = [data];
-        }
-        for (var i = 0, len = data.length; i < len; i++) {
-            dataAfter[i] = this.height - data[i];
-        }
-        return dataAfter;
+    HeartRate.dataChange = function (h, value) {
+        return h - value;
     }
 
+    HeartRate.prototype.draw = function (data, move) {
+        //        不是数组格式转换成数组
+        if (Object.prototype.toString.call(data).slice(8, -1) != 'Array') {
+            data = [HeartRate.dataChange(this.canvas.height, data)];
+        }
 
-    //    扩展公共方法
-    var publicMethod = {
-        draw: function (data, option) {
-            var n = 10,
-                distanW = this.width / n,
-                ctx = this.ctx;
+        //        填充数据
+        if (!move) Array.prototype.push.apply(this.totalData, data);
 
-            this.options = HeartRate.extend(HeartRate.extend({}, HeartRate.default), option);
-            this.historyData = {
-                x: '',
-                y: '',
-                len: data.length
-            }
-            this.distanW = distanW;
 
-            ctx.clearRect(0, 0, this.width, this.height);
-            this.fillBg(n, distanW);
-            this.bindData(data, n, distanW);
-        },
-        //        画背景
-        fillBg: function (n, distanW) {
+        this.bg(70, 100);
+        this.drawPoint();
+        this.drawLine();
+    }
 
-            var ctx = this.ctx;
+    //    背景
+    HeartRate.prototype.bg = function (min, max) {
+            var ctx = this.ctx,
+                options = this.options,
+                data = this.totalData,
+                addtionW = options.distance * data.length;
 
-            //            填充背景颜色
             ctx.save();
-            ctx.fillStyle = this.options.bgColor;
-            ctx.fillRect(0, 0, this.width, this.height);
-
+            //        背景色
+            ctx.fillStyle = options.bgColor;
+            ctx.fillRect(0, 0, ctx.canvas.width + addtionW, ctx.canvas.height);
             ctx.restore();
 
-            //            分割线
             ctx.save();
-            ctx.globalAlpha = .5;
-            for (var i = 1; i < n; i++) {
-                ctx.save()
+            //        间隔线
+            ctx.strokeStyle = options.bgLineColor;
+            for (var i = 0, len = options.distanceN + 1 + data.length; i < len; i++) {
                 ctx.beginPath();
-                ctx.strokeStyle = this.options.distanceColor;
-                ctx.lineWidth = 1;
-                ctx.moveTo(i * distanW, 0);
-                ctx.lineTo(i * distanW, this.height);
+                ctx.moveTo(i * options.distance, 0);
+                ctx.lineTo(i * options.distance, ctx.canvas.height);
                 ctx.stroke();
-                ctx.restore();
             }
             ctx.restore();
 
-            //            安全范围
-
             ctx.save();
-            //     ctx.font = '12px Arial';
-            //     ctx.fillStyle = '#53a065';
-            //     ctx.fillText('60', 10, this.height - 60);
-            //     ctx.fillText('100', 10, this.height - 100);
-            ctx.globalAlpha = .5;
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = '#53a065';
+            //        安全线
+            ctx.strokeStyle = options.bgSafeColor;
             ctx.beginPath();
-            ctx.moveTo(0, this.height - 60);
-            ctx.lineTo(this.width, this.height - 60);
-            ctx.moveTo(0, this.height - 100);
-            ctx.lineTo(this.width, this.height - 100);
+            ctx.moveTo(0, ctx.canvas.height - min);
+            ctx.lineTo(ctx.canvas.width + addtionW, ctx.canvas.height - min);
+            ctx.moveTo(0, ctx.canvas.height - max);
+            ctx.lineTo(ctx.canvas.width + addtionW, ctx.canvas.height - max);
             ctx.stroke();
             ctx.restore();
-        },
-        //        填充数据数组
-        bindData: function (data, n, distanW) {
+        }
+        //点
+    HeartRate.prototype.drawPoint = function () {
             var ctx = this.ctx,
-                self = this;
+                options = this.options,
+                data = this.totalData;
 
-            data = HeartRate.heightPro(data);
             ctx.save();
-            ctx.fillStyle = this.options.pointFillColor;
-
-            //            绘制数据点
-            for (var i = 0; i < data.length; i++) {
+            ctx.fillStyle = options.pointFillColor;
+            ctx.strokeColor = options.pointStrokeColor;
+            ctx.lineWidth = options.pointSrtokeWidth;
+            for (var i = 0, len = data.length; i < len; i++) {
                 ctx.beginPath();
-                ctx.arc(i * distanW, data[i], this.options.pointWidth, 0, 2 * Math.PI);
+                ctx.arc(i * options.distance, data[i], options.pointWidth, 0, 2 * Math.PI);
                 ctx.fill();
-            }
-            this.historyData.x = (i - 1) * this.distanW;
-            this.historyData.y = data[i - 1];
-            ctx.restore();
+                if (options.pointSrtokeWidth) ctx.stroke();
 
-            ctx.save()
-
-            //            绘制连线
-            ctx.strokeStyle = this.options.lineColor;
-            for (var i = 0; i < data.length; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * distanW, data[i]);
-                ctx.lineTo((i + 1) * distanW, data[i + 1]);
-                ctx.stroke();
             }
             ctx.restore();
-        },
-        //        填充单个数据
-        addData: function (value) {
-            var ctx = this.ctx,
-                value = HeartRate.heightPro(value);
+        }
+        //连线
+    HeartRate.prototype.drawLine = function () {
+        var ctx = this.ctx,
+            options = this.options,
+            data = this.totalData;
+
+        ctx.save();
+        ctx.strokeStyle = options.lineColor;
+        ctx.beginPath();
+        for (var i = 0, len = data.length; i < len; i++) {
+            ctx.moveTo(i * options.distance, data[i]);
+//            ctx.lineTo((i + 1) * options.distance, data[i + 1]);
+            ctx.bezierCurveTo(10+i * options.distance,-10+data[i],(i + 1) * options.distance, data[i + 1]);
+        }
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    //    拖动
+    function Move(context, obj) {
+        this.ctx = context;
+        this.x = this.curPos = 0;
+        this.obj = obj;
+        this.time = 1000;
+        this.setInt;
+    }
+
+    Move.prototype.moveStart = function (callback) {
+        var ctx = this.ctx,
+            self = this;
+        if (callback) callback();
+        this.setInt = setInterval(function () {
             ctx.save();
-            ctx.fillStyle = this.options.pointFillColor;
-            ctx.strokeStyle = this.options.lineColor;
-            ctx.beginPath();
-            ctx.arc(this.historyData.len * this.distanW, value, this.options.pointWidth, 0, 2 * Math.PI);
-            ctx.fill();
-
-
-            if (this.historyData.len > 1) {
-                ctx.beginPath();
-                ctx.moveTo(this.historyData.x, this.historyData.y);
-                ctx.lineTo(this.historyData.len * this.distanW, value[0]);
-                ctx.stroke();
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            if (self.obj.totalData.length > self.obj.options.overMove) {
+                self.curPos = self.x -= self.obj.options.distance;
+                ctx.translate(self.x, 0);
             }
-            this.historyData.x = this.historyData.len * this.distanW;
-            this.historyData.y = value[0];
-            this.historyData.len++;
-//            this.extenCanvas()
-        },
-        extenCanvas: function () {
-            var ctx = this.ctx;
-            console.log(HeartRate.additionX);
-            ctx.translate(HeartRate.additionX--,0);
-//            if (this.historyData.len > 7) {
-//                ctx.translate();
-//            }
+            var v = parseInt(Math.random() * 120) + 1;
+            self.obj.draw(v);
+            ctx.restore();
+            console.log(self.curPos);
+
+        }, this.time);
+    }
+
+    Move.prototype.moveEnd = function (callback) {
+        if (this.setInt) {
+            clearInterval(this.setInt);
+            if (callback) callback();
         }
     }
 
+    Move.prototype.drag = function (touch) {
+        var ctx = this.ctx,
+            self = this;
+        this.moveEnd();
+        var position = touch.x1 - touch.x2 > 0 ? -(Math.abs(touch.x1 - touch.x2)) : Math.abs(touch.x1 - touch.x2);
+
+        this.curPos = position + this.curPos;
+        if (this.curPos > 0) {
+            this.curPos = 0;
+        }else if(this.curPos < self.x){
+            this.curPos = self.x;
+        }
+        ctx.save();
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.translate(this.curPos, 0);
+        self.obj.draw(self.obj.totalData, true);
+        ctx.restore();
+    }
 
 
-    HeartRate.extend(HeartRate.prototype, publicMethod);
     Root.HeartRate = HeartRate;
+    Root.Move = Move;
 
-}).call(this);
+}).call(this)
 
-(function () {
+//心率范围
+;(function () {
     var Root = this;
 
     var HeartCur = function (option) {

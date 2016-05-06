@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="heartRate-rang">
-                    当天心率范围
+                    当天心率范围 <a href="#" id='end'>停止</a><a href="#" id="go">开始</a>
                     <div class="hRRang">
                         <canvas height="225" id='heartrate'></canvas>
                     </div>
@@ -59,11 +59,18 @@
         var canvas = document.getElementById('heartrate');
         var ctx = canvas.getContext('2d');
         var hr = new HeartRate(ctx);
-
+        var m = new Move(ctx, hr);
         var hrCur = new HeartCur();
         var i = 120;
-        var dataset = [68, 120];
-        hr.draw(dataset);
+
+
+        $('#heartrate').on('swipe',function(e,touch){
+            m.drag(touch)   
+        })
+
+
+        
+
         setInterval(function () {
             var d = new Date();
             var v = parseInt(Math.random() * i) + 1;
@@ -71,9 +78,20 @@
                 value: v,
                 date: d.getHours() + ':' + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ':' + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds())
             });
-            hr.addData(v);
+        }, 1000);
 
-        }, 1000)
+        $('#go').on('click', function () {
+            m.moveStart(function () {
+             
+            });
+        })
+        $('#end').on('click', function () {
+            m.moveEnd(function () {
+                console.log(hr.getData())
+            });
+        })
+
+        //        $('#heartrate')
     </script>
 
 
