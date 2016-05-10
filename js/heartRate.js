@@ -102,6 +102,10 @@
         this.getDataLen = function () {
             return this.totalData.length;
         }
+        
+        this.addData = function(value){
+            this.totalData.push(HeartRate.dataChange(this.canvas.height,value));
+        }
 
         this.getOptions = function () {
             return this.options;
@@ -119,7 +123,7 @@
         lineColor: '#fff',
         bgColor: '#414b69',
         bgLineColor: '#525e7f',
-        bgSafeColor: '#44576f'
+        bgSafeColor: '#5ec4a6'
     }
 
     HeartRate.extend = function (orin, exten) {
@@ -145,7 +149,7 @@
         if (!move) Array.prototype.push.apply(this.totalData, data);
 
 
-        this.bg(70, 100);
+        this.bg(60, 100);
         this.drawPoint();
         this.drawLine();
     }
@@ -215,8 +219,8 @@
         ctx.beginPath();
         for (var i = 0, len = data.length; i < len; i++) {
             ctx.moveTo(i * options.distance, data[i]);
-//            ctx.lineTo((i + 1) * options.distance, data[i + 1]);
-            ctx.bezierCurveTo(10+i * options.distance,-10+data[i],(i + 1) * options.distance, data[i + 1]);
+            ctx.lineTo((i + 1) * options.distance, data[i + 1]);
+            
         }
         ctx.stroke();
         ctx.restore();
@@ -227,6 +231,7 @@
         this.ctx = context;
         this.x = this.curPos = 0;
         this.obj = obj;
+        this.start = true;
         this.time = 1000;
         this.setInt;
     }
@@ -234,26 +239,29 @@
     Move.prototype.moveStart = function (callback) {
         var ctx = this.ctx,
             self = this;
-        if (callback) callback();
+        this.start = true;
+        if (callback!==undefined) callback();
         this.setInt = setInterval(function () {
+            
+            console.log(self.obj.totalData);
             ctx.save();
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
             if (self.obj.totalData.length > self.obj.options.overMove) {
-                self.curPos = self.x -= self.obj.options.distance;
+                self.curPos = self.x = -(self.obj.totalData.length-self.obj.options.overMove)*self.obj.options.distance;
                 ctx.translate(self.x, 0);
             }
-            var v = parseInt(Math.random() * 120) + 1;
-            self.obj.draw(v);
+            self.obj.draw(self.obj.totalData[self.obj.totalData.length-1],true);
             ctx.restore();
-            console.log(self.curPos);
 
         }, this.time);
     }
 
     Move.prototype.moveEnd = function (callback) {
         if (this.setInt) {
+            this.start = false;
             clearInterval(this.setInt);
-            if (callback) callback();
+            if (callback!==undefined) callback();
         }
     }
 

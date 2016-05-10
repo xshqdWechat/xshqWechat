@@ -20,22 +20,23 @@
         <div class="heatRate">
             <div class="head box-state">
                 <div class="heartRate-date flex-1">
+                    <a href="#" class="HRBeginBtn">开始监测</a>
                     <span>心率时间 <i class="hrtime"></i></span>
                 </div>
-                <div class="heartRate-value flex-1"><span class="heartRateicon"></span><i> bpm</i></div>
+                <div class="heartRate-value flex-1"><span class="heartRateicon"></span><i> 次 / 分</i></div>
             </div>
             <div class="content">
                 <div class="heartRate-feedback">
                     <div class="hrFeedbackbar">
                         <ul>
                             <li>
-                                <span>过缓</span>
+                                <span>偏慢</span>
                             </li><li>
                                 <span>正常</span>
                                 <i>60</i>
                                 <i>100</i>
                             </li><li>
-                                <span>过速</span>
+                                <span>偏快</span>
                             </li>
                         </ul>
                         <span class="heartrateCur"></span>
@@ -43,8 +44,9 @@
                     <div class="hrFeedbackbtext">
                     </div>
                 </div>
+
                 <div class="heartRate-rang">
-                    当天心率范围 <a href="#" id='end'>停止</a><a href="#" id="go">开始</a>
+                    当天心率范围<a href="javascript:void(0);" id='toggle' class="HRbtn">停止</a>
                     <div class="hRRang">
                         <canvas height="225" id='heartrate'></canvas>
                     </div>
@@ -62,36 +64,50 @@
         var m = new Move(ctx, hr);
         var hrCur = new HeartCur();
         var i = 120;
+        var beginHR;
 
 
-        $('#heartrate').on('swipe',function(e,touch){
-            m.drag(touch)   
+        $('#heartrate').on('swipe', function (e, touch) {
+            m.drag(touch);
+            if(m.start)$('#toggle').html('停止');
+            else $('#toggle').html('开始');
         })
 
-
-        
-
-        setInterval(function () {
-            var d = new Date();
-            var v = parseInt(Math.random() * i) + 1;
-            hrCur.setHRValueCur({
-                value: v,
-                date: d.getHours() + ':' + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ':' + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds())
-            });
-        }, 1000);
-
-        $('#go').on('click', function () {
-            m.moveStart(function () {
-             
-            });
-        })
-        $('#end').on('click', function () {
-            m.moveEnd(function () {
-                console.log(hr.getData())
-            });
+        $('#toggle').on('click', function () {
+            if (m.start) {
+                m.moveEnd();
+                $(this).html('开始');
+            } else {
+                m.moveStart();
+                $(this).html('停止');
+            }
         })
 
-        //        $('#heartrate')
+        $('.HRBeginBtn').on('click', function () {
+            if(m.start)$('#toggle').html('停止');
+            else $('#toggle').html('开始');
+            
+            if (beginHR) {
+                clearInterval(beginHR);
+                beginHR = null;
+                $(this).html('开始监测');
+            }
+            else {
+                beginHR = setInterval(function () {
+                    var d = new Date();
+                    var v = parseInt(Math.random() * i) + 1;
+                    hr.addData(v);
+                    hrCur.setHRValueCur({
+                        value: v,
+                        date: d.getHours() + ':' + (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + ':' + (d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds())
+                    });
+                }, 1000);
+                m.moveStart();
+                $(this).html('停止监测');
+            }
+
+        })
+
     </script>
 
 
