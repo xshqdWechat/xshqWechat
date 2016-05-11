@@ -93,29 +93,34 @@
         this.totalData = [];
         this.options = HeartRate.extend(HeartRate.extend({}, HeartRate.defalut), option);
         this.options.distance = this.canvas.width / this.options.distanceN;
+        
+//        视网膜屏 通过设置CSS来缩放的目的
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        this.pixeRetina = window.devicePixelRatio || 1;
 
+        HeartRate.retinaScale(this);
 
         this.getData = function () {
             return this.totalData;
-        }
+        };
 
         this.getDataLen = function () {
             return this.totalData.length;
-        }
+        };
         
         this.addData = function(value){
-            this.totalData.push(HeartRate.dataChange(this.canvas.height,value));
-        }
+            this.totalData.push(HeartRate.dataChange(this.height,value));
+        };
 
         this.getOptions = function () {
             return this.options;
-        }
+        };
     }
-
-
+    
     HeartRate.defalut = {
         distanceN: 10,
-        overMove: 6,
+        overMove: 9,
         pointFillColor: '#fff',
         pointStrokeColor: '#fff',
         pointWidth: 5,
@@ -124,8 +129,18 @@
         bgColor: '#414b69',
         bgLineColor: '#525e7f',
         bgSafeColor: '#5ec4a6'
-    }
+    };
 
+    HeartRate.retinaScale = function(self){
+        if(window.devicePixelRatio){
+            self.canvas.style.width = self.width+'px';
+            self.canvas.style.height = self.height+'px';
+            self.canvas.width = self.width*self.pixeRetina;
+            self.canvas.height = self.height*self.pixeRetina;
+            self.ctx.scale(self.pixeRetina,self.pixeRetina);
+        }
+    };
+    
     HeartRate.extend = function (orin, exten) {
         for (var name in exten) {
             if (exten.hasOwnProperty(name)) {
@@ -133,11 +148,11 @@
             }
         }
         return orin;
-    }
+    };
 
     HeartRate.dataChange = function (h, value) {
         return h - value;
-    }
+    };
 
     HeartRate.prototype.draw = function (data, move) {
         //        不是数组格式转换成数组
@@ -152,7 +167,7 @@
         this.bg(60, 100);
         this.drawPoint();
         this.drawLine();
-    }
+    };
 
     //    背景
     HeartRate.prototype.bg = function (min, max) {
@@ -179,16 +194,19 @@
             ctx.restore();
 
             ctx.save();
+        
+            console.log(this.altitude);
+        
             //        安全线
             ctx.strokeStyle = options.bgSafeColor;
             ctx.beginPath();
-            ctx.moveTo(0, ctx.canvas.height - min);
-            ctx.lineTo(ctx.canvas.width + addtionW, ctx.canvas.height - min);
-            ctx.moveTo(0, ctx.canvas.height - max);
-            ctx.lineTo(ctx.canvas.width + addtionW, ctx.canvas.height - max);
+            ctx.moveTo(0, (this.height - min));
+            ctx.lineTo(this.width + addtionW, this.height - min);
+            ctx.moveTo(0, this.height - max);
+            ctx.lineTo(this.width + addtionW, this.height - max);
             ctx.stroke();
             ctx.restore();
-        }
+        };
         //点
     HeartRate.prototype.drawPoint = function () {
             var ctx = this.ctx,
@@ -207,7 +225,7 @@
 
             }
             ctx.restore();
-        }
+        };
         //连线
     HeartRate.prototype.drawLine = function () {
         var ctx = this.ctx,
@@ -224,11 +242,13 @@
         }
         ctx.stroke();
         ctx.restore();
-    }
+    };
 
     //    拖动
     function Move(context, obj) {
         this.ctx = context;
+        this.width = parseInt(this.ctx.canvas.width)/window.devicePixelRatio;
+        this.height = parseInt(this.ctx.canvas.height)/window.devicePixelRatio;
         this.x = this.curPos = 0;
         this.obj = obj;
         this.start = true;
@@ -237,12 +257,13 @@
     }
 
     Move.prototype.moveStart = function (callback) {
+        
         var ctx = this.ctx,
             self = this;
         this.start = true;
         if (callback!==undefined) callback();
         this.setInt = setInterval(function () {
-            
+            var totalDataMax,totalDataMin,curViewData,DIF;
             console.log(self.obj.totalData);
             ctx.save();
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -251,11 +272,18 @@
                 self.curPos = self.x = -(self.obj.totalData.length-self.obj.options.overMove)*self.obj.options.distance;
                 ctx.translate(self.x, 0);
             }
+            curViewData=self.obj.totalData.slice(-self.obj.options.overMove,-1);
+            totalDataMax = Math.max.apply(null,curViewData);
+            totalDataMin = Math.min.apply(null,curViewData);
+            DIF = Math.abs(totalDataMax-totalDataMin);
+//            console.log(ctx.canvas.height);
+            self.obj.altitude = Math.floor(self.height/DIF);
+            console.log(totalDataMax+' '+totalDataMin+' '+DIF);
             self.obj.draw(self.obj.totalData[self.obj.totalData.length-1],true);
             ctx.restore();
 
         }, this.time);
-    }
+    };
 
     Move.prototype.moveEnd = function (callback) {
         if (this.setInt) {
@@ -263,7 +291,7 @@
             clearInterval(this.setInt);
             if (callback!==undefined) callback();
         }
-    }
+    };
 
     Move.prototype.drag = function (touch) {
         var ctx = this.ctx,
@@ -282,7 +310,7 @@
         ctx.translate(this.curPos, 0);
         self.obj.draw(self.obj.totalData, true);
         ctx.restore();
-    }
+    };
 
 
     Root.HeartRate = HeartRate;

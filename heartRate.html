@@ -16,44 +16,44 @@
 </head>
 
 <body>
-    <div class="body-box">
-        <div class="heatRate">
-            <div class="head box-state">
-                <div class="heartRate-date flex-1">
-                    <a href="#" class="HRBeginBtn">开始监测</a>
-                    <span>心率时间 <i class="hrtime"></i></span>
-                </div>
-                <div class="heartRate-value flex-1"><span class="heartRateicon"></span><i> 次 / 分</i></div>
+    <!--    <div class="body-box">-->
+    <div class="heatRate">
+        <div class="head box-state">
+            <div class="heartRate-date flex-1">
+                <a href="#" class="HRBeginBtn">开始监测</a>
+                <span>心率时间 <i class="hrtime"></i></span>
             </div>
-            <div class="content">
-                <div class="heartRate-feedback">
-                    <div class="hrFeedbackbar">
-                        <ul>
-                            <li>
-                                <span>偏慢</span>
-                            </li><li>
-                                <span>正常</span>
-                                <i>60</i>
-                                <i>100</i>
-                            </li><li>
-                                <span>偏快</span>
-                            </li>
-                        </ul>
-                        <span class="heartrateCur"></span>
-                    </div>
-                    <div class="hrFeedbackbtext">
-                    </div>
+            <div class="heartRate-value flex-1"><span class="heartRateicon"></span><i> 次 / 分</i></div>
+        </div>
+        <div class="content">
+            <div class="heartRate-feedback">
+                <div class="hrFeedbackbar">
+                    <ul>
+                        <li>
+                            <span>偏慢</span>
+                        </li><li>
+                            <span>正常</span>
+                            <i>60</i>
+                            <i>100</i>
+                        </li><li>
+                            <span>偏快</span>
+                        </li>
+                    </ul>
+                    <span class="heartrateCur"></span>
                 </div>
+                <div class="hrFeedbackbtext">
+                </div>
+            </div>
 
-                <div class="heartRate-rang">
-                    当天心率范围<a href="javascript:void(0);" id='toggle' class="HRbtn">停止</a>
-                    <div class="hRRang">
-                        <canvas height="225" id='heartrate'></canvas>
-                    </div>
+            <div class="heartRate-rang">
+                当天心率范围<a href="javascript:void(0);" id='toggle' class="HRbtn">停止</a>
+                <div class="hRRang">
+                    <canvas height="225" id='heartrate'></canvas>
                 </div>
             </div>
         </div>
     </div>
+    <!--    </div>-->
 
     <script type="text/javascript">
         var width = $('.hRRang').width();
@@ -63,13 +63,13 @@
         var hr = new HeartRate(ctx);
         var m = new Move(ctx, hr);
         var hrCur = new HeartCur();
-        var i = 120;
+        var i = 5;
         var beginHR;
 
 
         $('#heartrate').on('swipe', function (e, touch) {
             m.drag(touch);
-            if(m.start)$('#toggle').html('停止');
+            if (m.start) $('#toggle').html('停止');
             else $('#toggle').html('开始');
         })
 
@@ -84,18 +84,17 @@
         })
 
         $('.HRBeginBtn').on('click', function () {
-            if(m.start)$('#toggle').html('停止');
-            else $('#toggle').html('开始');
-            
+
+
             if (beginHR) {
                 clearInterval(beginHR);
                 beginHR = null;
                 $(this).html('开始监测');
-            }
-            else {
+                m.moveEnd();
+            } else {
                 beginHR = setInterval(function () {
                     var d = new Date();
-                    var v = parseInt(Math.random() * i) + 1;
+                    var v = parseInt(Math.random() * i) + 83;
                     hr.addData(v);
                     hrCur.setHRValueCur({
                         value: v,
@@ -106,8 +105,10 @@
                 $(this).html('停止监测');
             }
 
-        })
+            if (m.start) $('#toggle').html('停止');
+            else $('#toggle').html('开始');
 
+        })
     </script>
 
 

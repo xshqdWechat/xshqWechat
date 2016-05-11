@@ -1,0 +1,85 @@
+body{
+    background-color: #f5f5f5;
+}
+.perinf{
+    background-color: #00b7ee;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    height: 74px;
+    line-height: 58px;
+    padding:8px 16px;
+}
+
+.perinf img{
+    width: 56px;
+    height: 56px;
+    -webkit-border-radius: 50% 50%;
+    border-radius: 50% 50%;
+    vertical-align: middle;
+    margin-right: 16px;
+}
+
+.perinf a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: normal;
+}
+
+.equalCar{
+    padding: 16px;
+    margin-top: 8px;
+    height: 64px;
+    line-height: 32px;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #dfdfdf;
+    border-width: 1px 0;
+    font-size: 14px;
+    position: relative;
+    color: #4f4f4f;
+}
+
+.equalCar span.icon{
+    display: inline-block;
+    content: '\20';
+    border:none;
+    background: url(../img/perinfIcon.png) no-repeat;
+    width: 34px;
+    height: 34px;
+    -webkit-background-size: 34px 136px;
+    background-size: 34px 136px;
+    margin-right: 16px;
+    vertical-align: middle;
+}
+
+.equalCar span.tzi{
+    background-position: 0 -34px;
+}
+
+.equalCar span.yd{
+    background-position: 0 -68px;
+}
+
+.equalCar span.xl{
+    background-position: 0 -102px;
+}
+
+a.lr{
+    padding-right: 16px;;
+    position: relative;
+    color: #999;
+}
+
+a.lr:after{
+    content: '\20';
+    right: 0;
+    top: 3px;
+    position: absolute;
+    background: url(../img/rt.png) no-repeat;
+    width: 6px;
+    height: 12px;
+    display: block;
+    -webkit-background-size: 6px 12px;
+    background-size: 6px 12px;
+}
