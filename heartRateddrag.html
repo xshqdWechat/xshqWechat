@@ -46,9 +46,9 @@
             </div>
 
             <div class="heartRate-rang">
-                当天心率范围
+                当天心率范围<a href="javascript:void(0);" id='toggle' class="HRbtn">停止</a>
                 <div class="hRRang">
-                    <canvas height="160" id='heartrate'></canvas>
+                    <canvas height="225" id='heartrate'></canvas>
                 </div>
             </div>
         </div>
@@ -63,12 +63,28 @@
         var hr = new HeartRate(ctx);
         var m = new Move(ctx, hr);
         var hrCur = new HeartCur();
-        var i = 20;
+        var i = 5;
         var beginHR;
 
 
+        $('#heartrate').on('swipe', function (e, touch) {
+            m.drag(touch);
+            if (m.start) $('#toggle').html('停止');
+            else $('#toggle').html('开始');
+        })
+
+        $('#toggle').on('click', function () {
+            if (m.start) {
+                m.moveEnd();
+                $(this).html('开始');
+            } else {
+                m.moveStart();
+                $(this).html('停止');
+            }
+        })
 
         $('.HRBeginBtn').on('click', function () {
+
 
             if (beginHR) {
                 clearInterval(beginHR);
@@ -92,6 +108,8 @@
                 $(this).html('停止监测');
             }
 
+            if (m.start) $('#toggle').html('停止');
+            else $('#toggle').html('开始');
 
         })
     </script>

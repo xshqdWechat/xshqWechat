@@ -1,5 +1,6 @@
 //触击事件
-;(function ($) {
+;
+(function ($) {
     var touch = {},
         touchTimeout;
 
@@ -83,7 +84,8 @@
 }(jQuery))
 
 //心率图
-;(function () {
+;
+(function () {
     var Root = this;
 
     function HeartRate(context, option) {
@@ -93,8 +95,8 @@
         this.totalData = [];
         this.options = HeartRate.extend(HeartRate.extend({}, HeartRate.defalut), option);
         this.options.distance = this.canvas.width / this.options.distanceN;
-        
-//        视网膜屏 通过设置CSS来缩放的目的
+
+        //        视网膜屏 通过设置CSS来缩放的目的
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.pixeRetina = window.devicePixelRatio || 1;
@@ -108,39 +110,40 @@
         this.getDataLen = function () {
             return this.totalData.length;
         };
-        
-        this.addData = function(value){
-            this.totalData.push(HeartRate.dataChange(this.height,value));
+
+        this.addData = function (value) {
+            this.totalData.push(HeartRate.dataChange(this.height, value));
         };
 
         this.getOptions = function () {
             return this.options;
         };
     }
-    
+
     HeartRate.defalut = {
         distanceN: 10,
         overMove: 9,
-        pointFillColor: '#fff',
+        pointFillColor: '#6174b0',
         pointStrokeColor: '#fff',
         pointWidth: 5,
         pointSrtokeWidth: 0,
-        lineColor: '#fff',
-        bgColor: '#414b69',
-        bgLineColor: '#525e7f',
-        bgSafeColor: '#5ec4a6'
+        lineColor: '#5e6a8f',
+        lineWidth: 2,
+        bgColor: '#2a2e3c',
+        bgLineColor: '#323644',
+        bgSafeColor: '#3a4a32'
     };
 
-    HeartRate.retinaScale = function(self){
-        if(window.devicePixelRatio){
-            self.canvas.style.width = self.width+'px';
-            self.canvas.style.height = self.height+'px';
-            self.canvas.width = self.width*self.pixeRetina;
-            self.canvas.height = self.height*self.pixeRetina;
-            self.ctx.scale(self.pixeRetina,self.pixeRetina);
+    HeartRate.retinaScale = function (self) {
+        if (window.devicePixelRatio) {
+            self.canvas.style.width = self.width + 'px';
+            self.canvas.style.height = self.height + 'px';
+            self.canvas.width = self.width * self.pixeRetina;
+            self.canvas.height = self.height * self.pixeRetina;
+            self.ctx.scale(self.pixeRetina, self.pixeRetina);
         }
     };
-    
+
     HeartRate.extend = function (orin, exten) {
         for (var name in exten) {
             if (exten.hasOwnProperty(name)) {
@@ -165,80 +168,98 @@
 
 
         this.bg(60, 100);
-        this.drawPoint();
         this.drawLine();
+//        this.drawPoint();
     };
 
     //    背景
     HeartRate.prototype.bg = function (min, max) {
-            var ctx = this.ctx,
-                options = this.options,
-                data = this.totalData,
-                addtionW = options.distance * data.length;
+        var ctx = this.ctx,
+            options = this.options,
+            data = this.totalData,
+            addtionW = options.distance * data.length;
 
-            ctx.save();
-            //        背景色
-            ctx.fillStyle = options.bgColor;
-            ctx.fillRect(0, 0, ctx.canvas.width + addtionW, ctx.canvas.height);
-            ctx.restore();
+        ctx.save();
+        //        背景色
+        ctx.fillStyle = options.bgColor;
+        ctx.fillRect(0, 0, ctx.canvas.width + addtionW, ctx.canvas.height);
+        ctx.restore();
 
-            ctx.save();
-            //        间隔线
-            ctx.strokeStyle = options.bgLineColor;
-            for (var i = 0, len = options.distanceN + 1 + data.length; i < len; i++) {
-                ctx.beginPath();
-                ctx.moveTo(i * options.distance, 0);
-                ctx.lineTo(i * options.distance, ctx.canvas.height);
-                ctx.stroke();
-            }
-            ctx.restore();
-
-            ctx.save();
-        
-            console.log(this.altitude);
-        
-            //        安全线
-            ctx.strokeStyle = options.bgSafeColor;
+        ctx.save();
+        //        间隔线
+        ctx.strokeStyle = options.bgLineColor;
+        for (var i = 0, len = options.distanceN + 1 + data.length; i < len; i++) {
             ctx.beginPath();
-            ctx.moveTo(0, (this.height - min));
-            ctx.lineTo(this.width + addtionW, this.height - min);
-            ctx.moveTo(0, this.height - max);
-            ctx.lineTo(this.width + addtionW, this.height - max);
+            ctx.moveTo(i * options.distance, 0);
+            ctx.lineTo(i * options.distance, ctx.canvas.height);
             ctx.stroke();
-            ctx.restore();
-        };
-        //点
+        }
+        ctx.restore();
+
+
+        //        安全线
+//        ctx.save();
+//        ctx.strokeStyle = options.bgSafeColor;
+//        ctx.lineWidth = 1;
+//        ctx.beginPath();
+//        ctx.moveTo(0, ((this.height - min) - this.min) * this.altitude);
+//        ctx.lineTo(this.width + addtionW, ((this.height - min) - this.min) * this.altitude);
+//        ctx.moveTo(0, ((this.height - max) - this.min) * this.altitude);
+//        ctx.lineTo(this.width + addtionW, ((this.height - max) - this.min) * this.altitude);
+//        ctx.stroke();
+//        ctx.restore();
+
+        //        坐标
+        ctx.save();
+        ctx.fillStyle = '#465279';
+        ctx.font = '13px Microsoft YaHei';
+        ctx.textBaseline="hanging";
+        ctx.fillText(this.height - this.min, (data.length - options.overMove > 0 ? data.length - options.overMove : 0) * options.distance+5, this.corrected / 2 * this.altitude);
+        ctx.fillText(this.height - this.max, (data.length - options.overMove > 0 ? data.length - options.overMove : 0) * options.distance+5, (this.max - this.min + this.corrected / 2) * this.altitude);
+        ctx.restore();
+
+    };
+    //点
     HeartRate.prototype.drawPoint = function () {
-            var ctx = this.ctx,
-                options = this.options,
-                data = this.totalData;
+        var ctx = this.ctx,
+            options = this.options,
+            data = this.totalData;
 
-            ctx.save();
-            ctx.fillStyle = options.pointFillColor;
-            ctx.strokeColor = options.pointStrokeColor;
-            ctx.lineWidth = options.pointSrtokeWidth;
-            for (var i = 0, len = data.length; i < len; i++) {
-                ctx.beginPath();
-                ctx.arc(i * options.distance, data[i], options.pointWidth, 0, 2 * Math.PI);
-                ctx.fill();
-                if (options.pointSrtokeWidth) ctx.stroke();
+        ctx.save();
+        ctx.fillStyle = options.pointFillColor;
+        ctx.strokeColor = options.pointStrokeColor;
+        ctx.lineWidth = options.pointSrtokeWidth;
+        for (var i = 0, len = data.length; i < len; i++) {
+            ctx.beginPath();
+            ctx.arc(i * options.distance, (data[i] - this.min + this.corrected / 2) * this.altitude, options.pointWidth, 0, 2 * Math.PI);
+            ctx.fill();
+            if (options.pointSrtokeWidth) ctx.stroke();
 
-            }
-            ctx.restore();
-        };
-        //连线
+        }
+        ctx.restore();
+    };
+    //连线
     HeartRate.prototype.drawLine = function () {
         var ctx = this.ctx,
             options = this.options,
             data = this.totalData;
 
         ctx.save();
-        ctx.strokeStyle = options.lineColor;
+        var grd = ctx.createLinearGradient((data.length - options.overMove > 0 ? data.length - options.overMove : 0) * options.distance, 0, data.length*options.distance, 0);
+        grd.addColorStop(0, "#323644");
+        grd.addColorStop(0.5, "#688c41");
+        grd.addColorStop(1, "#91ff00");
+        ctx.strokeStyle = grd;
+        ctx.shadowBlur = 4;
+        ctx.shadowOffsetY=15;
+        ctx.shadowColor = '#262936';
+//        ctx.strokeStyle = options.lineColor;
+        ctx.lineWidth = options.lineWidth;
         ctx.beginPath();
         for (var i = 0, len = data.length; i < len; i++) {
-            ctx.moveTo(i * options.distance, data[i]);
-            ctx.lineTo((i + 1) * options.distance, data[i + 1]);
-            
+            ctx.moveTo(i * options.distance, (data[i] - this.min + this.corrected / 2) * this.altitude);
+            ctx.lineTo((i + 1) * options.distance, (data[i + 1] - this.min + this.corrected / 2) * this.altitude);
+
         }
         ctx.stroke();
         ctx.restore();
@@ -247,8 +268,8 @@
     //    拖动
     function Move(context, obj) {
         this.ctx = context;
-        this.width = parseInt(this.ctx.canvas.width)/window.devicePixelRatio;
-        this.height = parseInt(this.ctx.canvas.height)/window.devicePixelRatio;
+        this.width = parseInt(this.ctx.canvas.width) / window.devicePixelRatio;
+        this.height = parseInt(this.ctx.canvas.height) / window.devicePixelRatio;
         this.x = this.curPos = 0;
         this.obj = obj;
         this.start = true;
@@ -256,30 +277,48 @@
         this.setInt;
     }
 
-    Move.prototype.moveStart = function (callback) {
+    //    当前视图中的点差值每单位间距
+    Move.curViewDIF = function (self) {
+        var totalDataMax, totalDataMin, curViewData, DIF;
+        //			当前视图中的数据也就是目前OVERMOVE所呈现的数据,长度为overMove
+        curViewData = self.obj.totalData.slice(-self.obj.options.overMove, -1);
+        //			当前数据中最大值
+        self.obj.max = totalDataMax = Math.max.apply(null, curViewData);
+        //			当前数据中最小值，同时保存在实例对象中，方便实例计算
+        self.obj.min = totalDataMin = Math.min.apply(null, curViewData);
+        //			根据最大最小值求出他们之间的差值,用以计算差值之间每单位所占的高度
+        DIF = Math.abs(totalDataMax - totalDataMin);
+
+        //        上下限修正 防止最小值在最下面，最大值在最上面
+
+        self.obj.corrected = Math.ceil(DIF / 5);
         
+        if(self.obj.corrected == 0){
+            self.obj.corrected = 10;
+        }
+
+        //			用画布的高度除以差值，求出差之间每单位所占的高度，并保存在实例对象中
+        self.obj.altitude = Math.floor(self.height / (DIF + self.obj.corrected));
+        
+    }
+
+    Move.prototype.moveStart = function (callback) {
+
         var ctx = this.ctx,
             self = this;
         this.start = true;
-        if (callback!==undefined) callback();
+        if (callback !== undefined) callback();
         this.setInt = setInterval(function () {
-            var totalDataMax,totalDataMin,curViewData,DIF;
-            console.log(self.obj.totalData);
             ctx.save();
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
             if (self.obj.totalData.length > self.obj.options.overMove) {
-                self.curPos = self.x = -(self.obj.totalData.length-self.obj.options.overMove)*self.obj.options.distance;
+                self.curPos = self.x = -(self.obj.totalData.length - self.obj.options.overMove) * self.obj.options.distance;
                 ctx.translate(self.x, 0);
             }
-            curViewData=self.obj.totalData.slice(-self.obj.options.overMove,-1);
-            totalDataMax = Math.max.apply(null,curViewData);
-            totalDataMin = Math.min.apply(null,curViewData);
-            DIF = Math.abs(totalDataMax-totalDataMin);
-//            console.log(ctx.canvas.height);
-            self.obj.altitude = Math.floor(self.height/DIF);
-            console.log(totalDataMax+' '+totalDataMin+' '+DIF);
-            self.obj.draw(self.obj.totalData[self.obj.totalData.length-1],true);
+
+            Move.curViewDIF(self);
+            self.obj.draw(self.obj.totalData[self.obj.totalData.length - 1], true);
             ctx.restore();
 
         }, this.time);
@@ -289,7 +328,7 @@
         if (this.setInt) {
             this.start = false;
             clearInterval(this.setInt);
-            if (callback!==undefined) callback();
+            if (callback !== undefined) callback();
         }
     };
 
@@ -302,12 +341,13 @@
         this.curPos = position + this.curPos;
         if (this.curPos > 0) {
             this.curPos = 0;
-        }else if(this.curPos < self.x){
+        } else if (this.curPos < self.x) {
             this.curPos = self.x;
         }
         ctx.save();
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.translate(this.curPos, 0);
+        Move.curViewDIF(self);
         self.obj.draw(self.obj.totalData, true);
         ctx.restore();
     };
@@ -319,7 +359,8 @@
 }).call(this)
 
 //心率范围
-;(function () {
+;
+(function () {
     var Root = this;
 
     var HeartCur = function (option) {
@@ -338,7 +379,7 @@
     };
 
     HeartCur.defalut = {
-        aveg: 225,
+        aveg: 160,
         hrTip: [['心率处于正常水平，合理的生活习惯让你的心脏更加健康。', '#c4d3ff'], ['当前心率处于过缓水平，需向专业医生咨询详细情况。', '#d25b5b'], ['当前心率处于过速水平，需向专业医生咨询详细情况。', '#d2c85b']]
     }
 
