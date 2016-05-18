@@ -385,7 +385,7 @@ span.heartRateicon:before {
 
 /*单选*/
 
-.myRadio input{
+.myRadio input,.myCheckbox input{
     display: none;
 }
 /*.myCheckbox input */
