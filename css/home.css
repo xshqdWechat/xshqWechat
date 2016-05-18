@@ -40,6 +40,10 @@ body{
     color: #4f4f4f;
 }
 
+.equalCar i{
+    font-size: 12px;
+}
+
 .equalCar span.icon{
     display: inline-block;
     content: '\20';
@@ -47,8 +51,8 @@ body{
     background: url(../img/perinfIcon.png) no-repeat;
     width: 34px;
     height: 34px;
-    -webkit-background-size: 34px 136px;
-    background-size: 34px 136px;
+    -webkit-background-size: 34px 170px;
+    background-size: 34px 170px;
     margin-right: 16px;
     vertical-align: middle;
 }
@@ -65,6 +69,10 @@ body{
     background-position: 0 -102px;
 }
 
+.equalCar span.nz{
+    background-position: 0 -136px;
+}
+
 a.lr{
     padding-right: 16px;;
     position: relative;
@@ -74,7 +82,7 @@ a.lr{
 a.lr:after{
     content: '\20';
     right: 0;
-    top: 3px;
+    top: 2px;
     position: absolute;
     background: url(../img/rt.png) no-repeat;
     width: 6px;
@@ -82,4 +90,18 @@ a.lr:after{
     display: block;
     -webkit-background-size: 6px 12px;
     background-size: 6px 12px;
+}
+
+span.ok{
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: url(../img/ok.png) no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    -webkit-background-size: 18px 18px;
+    background-size: 18px 18px;
 }

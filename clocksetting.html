@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link href="css/goable.css" rel="stylesheet">
+    <link href="css/clock.css" rel="stylesheet">
+    <!--	jquery-->
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <!--	chart.js-->
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Core.js"></script>
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Doughnut.js"></script>
+    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Line.js"></script>
+
+    <!--	mobiscroll-->
+    <link href="lib/mobiscroll/dev/css/mobiscroll.core-2.6.2.css" rel="stylesheet">
+    <link href="lib/mobiscroll/dev/css/mobiscroll.animation-2.6.2.css" rel="stylesheet">
+    <link href="lib/mobiscroll/dev/css/mobiscroll.clock.css" rel="stylesheet">
+    <script type="text/javascript" src="lib/mobiscroll/dev/js/mobiscroll.core-2.6.2.js"></script>
+    <script type="text/javascript" src="lib/mobiscroll/dev/js/mobiscroll.datetime-2.6.2.js"></script>
+
+    <!--	self-->
+
+    <script type="text/javascript" src="js/myChart.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <input type="text" id='searchData' value="" class="dataSelinput" style="display:none;">
+    </div>
+    <ul class="clockOptions">
+        <li class="tapLi" id='repeatDay'>
+            重复
+            <span>周一 周二 周三 周四 周五 周六 </span>
+        </li>
+        <li class="myRadio">
+            类型
+            <label for='wakeUp'><span>起床<i class="wxRadio checkd"></i></span>
+                <input type="radio" name='clockType' value="0" id='wakeUp'>
+            </label>
+            <label for='medicine'><span>吃药<i class="wxRadio"></i></span>
+                <input type="radio" name='clockType' value="1" id='medicine'>
+            </label>
+
+        </li>
+        <li class="tapLi">
+            备注
+            <span>跑步,运动生命之源！</span>
+        </li>
+    </ul>
+
+    <div class="repeatDay">
+        <h6>重复</h6>
+        <ul class="myCheckbox">
+            <li class='clearfix'>
+                <label for="w1"><span>周一</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w1' value="1">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w2"><span>周二</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w2' value="2">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w3"><span>周三</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w3' value="3">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w4"><span>周二</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w4' value="4">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w5"><span>周五</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w5' value="5">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w6"><span>周六</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w6' value="6">
+                </label>
+            </li>
+            <li class='clearfix'>
+                <label for="w7"><span>周日</span>
+                    <i class="wxCheckbox fr mt8"></i>
+                    <input type="checkbox" name="repeatday" id='w7' value="7">
+                </label>
+            </li>
+            <li class="twobtn">
+                <a href="#" class="btnCancal">取消</a><a href="#" class="btnOK">确定</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="pb38"></div>
+    <a href="#" class="blueBtn pob">确定</a>
+    <script type="text/javascript">
+        $(function () {
+            //        时间控件
+            var myopt = {
+                preset: 'time',
+                theme: 'wp',
+                display: 'top',
+                timeWheels: 'HHii',
+                timeFormat: 'HH:ii',
+                hourText: '时',
+                minuteText: '分',
+                setText: '确定',
+                cancelText: '取消',
+                dateFormat: 'yy-mm-dd',
+                dateOrder: 'yymmdd',
+                onSelect: function (valueText, inst) {
+                    console.log(valueText);
+                }
+            };
+            $('#searchData').mobiscroll(myopt);
+            var inst = $('#searchData').mobiscroll('getInst');
+            inst.settings.inputShow = true;
+            inst.show(true);
+            $('<div class="selbg"></div>').appendTo($('.dwwc'));
+            $('.dw-persp').height(0);
+
+            //            单选
+            $('label').on('click', function (e) {
+                if (e.target.tagName != "INPUT") {
+                    return;
+                }
+                $(this).parent().find('input[type="radio"]').each(function (i, e) {
+                    if (e.checked) {
+                        $(e).parent().find('.wxRadio').addClass('checkd');
+                    } else {
+                        $(e).parent().find('.wxRadio').removeClass('checkd');
+                    }
+                })
+            })
+
+            //            多选
+
+            $('label').on('click', function (e) {
+                if (e.target.tagName != "INPUT") {
+                    return;
+                }
+                $(this).parents('.myCheckbox').find('input[type="checkbox"]').each(function (i, e) {
+                    if (e.checked) {
+                        $(e).parent().find('.wxCheckbox').addClass('checkd');
+                    } else {
+                        $(e).parent().find('.wxCheckbox').removeClass('checkd');
+                    }
+                })
+            })
+
+
+        })
+    </script>
+</body>
+
+</html>

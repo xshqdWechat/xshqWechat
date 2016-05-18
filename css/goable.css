@@ -380,9 +380,69 @@ span.heartRateicon:before {
 }
 
 
+/*自定义组件*/
+
+
+/*单选*/
+
+.myRadio input{
+    display: none;
+}
+/*.myCheckbox input */
+i.wxRadio {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    -webkit-border-radius: 50% 50%;
+    border-radius: 50% 50%;
+    border: 1px solid #bfbfbf;
+    margin-left: 8px;
+    vertical-align: -2px;
+}
+
+
+i.wxCheckbox{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border: 1px solid #bfbfbf;
+    -webkit-border-radius: 2px 2px;
+    border-radius: 2px 2px;
+    margin-left: 8px;
+    vertical-align: -3px;
+}
+
+i.checkd {
+    background-color: #448aca;
+    border: none;
+    position: relative;
+}
+
+i.checkd:after {
+    position: absolute;
+    left: 2px;
+    top: 4px;
+    content: '\20';
+    width: 12px;
+    height: 8px;
+    background: url('../img/checked.png') no-repeat;
+    -webkit-background-size: 12px 8px;
+    background-size: 12px 8px;
+}
+
+
 /*width*/
 
 .w120 {
     width: 120px;
     display: inline-block;
+}
+
+.mt8{
+    margin-top: 14px;
+}
+
+/*padding*/
+.pb38{
+    padding-bottom: 38px;
 }

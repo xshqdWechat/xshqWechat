@@ -1,0 +1,120 @@
+* {
+    font-family: '微软雅黑';
+}
+
+.clockOptions {
+    font-size: 16px;
+    margin-top: 198px;
+}
+
+.clockOptions li {
+    padding: 0 16px;
+    border-bottom: 1px solid #dfdfdf;
+    height: 63px;
+    line-height: 63px;
+    color: #4f4f4f;
+    position: relative;
+}
+
+.clockOptions li.tapLi:active {
+    background-color: #f0f0f0;
+}
+
+.clockOptions li.tapLi:after {
+    content: '\20';
+    right: 16px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: absolute;
+    background: url(../img/rt.png) no-repeat;
+    width: 6px;
+    height: 12px;
+    display: block;
+    -webkit-background-size: 6px 12px;
+    background-size: 6px 12px;
+}
+
+.clockOptions li span {
+    font-size: 12px;
+    margin-left: 16px;
+    color: #999;
+}
+
+a.blueBtn {
+    display: inline-block;
+    background-color: #448aca;
+    text-align: center;
+    height: 38px;
+    line-height: 38px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    width: 100%;
+}
+
+a.blueBtn:active {
+    background-color: #2f5e89;
+}
+
+.repeatDay {
+    background-color: #fff;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 1100;
+}
+
+.repeatDay h6 {
+    text-align: center;
+    font-size: 14px;
+    color: #4f4f4f;
+    height: 50px;
+    line-height: 50px;
+}
+
+.repeatDay li {
+    padding: 0 16px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid #dfdfdf;
+}
+
+.repeatDay li.twobtn {
+    padding-top: 8px;
+    height: 60px;
+    text-align: center;
+}
+
+.myCheckbox label {
+    display: inline-block;
+    width: 100%;
+}
+
+.twobtn a {
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+    background-color: #448aca;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    width: 49%;
+    border-radius: 0 4px 4px 0;
+}
+
+.twobtn a:first-child {
+    border-right: 1px solid #69a1d5;
+    border-radius: 4px 0 0 4px;
+}
+
+.twobtn a:active {
+    background-color: #2f5e89;
+}
+
+.pob {
+    position: fixed;
+    bottom: 0;
+}

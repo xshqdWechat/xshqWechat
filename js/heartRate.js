@@ -179,14 +179,14 @@
             data = this.totalData,
             addtionW = options.distance * data.length;
 
-        ctx.save();
         //        背景色
+        ctx.save();
         ctx.fillStyle = options.bgColor;
         ctx.fillRect(0, 0, ctx.canvas.width + addtionW, ctx.canvas.height);
         ctx.restore();
 
-        ctx.save();
         //        间隔线
+        ctx.save();
         ctx.strokeStyle = options.bgLineColor;
         for (var i = 0, len = options.distanceN + 1 + data.length; i < len; i++) {
             ctx.beginPath();
@@ -258,7 +258,8 @@
         ctx.beginPath();
         for (var i = 0, len = data.length; i < len; i++) {
             ctx.moveTo(i * options.distance, (data[i] - this.min + this.corrected / 2) * this.altitude);
-            ctx.lineTo((i + 1) * options.distance, (data[i + 1] - this.min + this.corrected / 2) * this.altitude);
+//            ctx.lineTo((i + 1) * options.distance, (data[i + 1] - this.min + this.corrected / 2) * this.altitude);
+            ctx.bezierCurveTo(i * options.distance+options.distance/2,(data[i] - this.min + this.corrected / 2) * this.altitude,i * options.distance+options.distance/2,(data[i+1] - this.min + this.corrected / 2) * this.altitude,(i + 1) * options.distance, (data[i + 1] - this.min + this.corrected / 2) * this.altitude);
 
         }
         ctx.stroke();
@@ -281,7 +282,7 @@
     Move.curViewDIF = function (self) {
         var totalDataMax, totalDataMin, curViewData, DIF;
         //			当前视图中的数据也就是目前OVERMOVE所呈现的数据,长度为overMove
-        curViewData = self.obj.totalData.slice(-self.obj.options.overMove, -1);
+        curViewData = self.obj.totalData.slice(-self.obj.options.overMove);
         //			当前数据中最大值
         self.obj.max = totalDataMax = Math.max.apply(null, curViewData);
         //			当前数据中最小值，同时保存在实例对象中，方便实例计算
