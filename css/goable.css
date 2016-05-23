@@ -10,6 +10,10 @@ body {
     font-family: Helvetica, Microsoft YaHei, Arial;
 }
 
+.ovN {
+    overflow: hidden;
+}
+
 body,
 ul,
 li,
@@ -385,10 +389,14 @@ span.heartRateicon:before {
 
 /*单选*/
 
-.myRadio input,.myCheckbox input{
+.myRadio input,
+.myCheckbox input {
     display: none;
 }
+
+
 /*.myCheckbox input */
+
 i.wxRadio {
     width: 16px;
     height: 16px;
@@ -397,11 +405,10 @@ i.wxRadio {
     border-radius: 50% 50%;
     border: 1px solid #bfbfbf;
     margin-left: 8px;
-    vertical-align: -2px;
+    vertical-align: -3px;
 }
 
-
-i.wxCheckbox{
+i.wxCheckbox {
     width: 16px;
     height: 16px;
     display: inline-block;
@@ -430,6 +437,42 @@ i.checkd:after {
     background-size: 12px 8px;
 }
 
+.myText input[type='text']{
+    border: 0;
+    width: 100%;
+    font-size: 12px;
+    color: #666;
+}
+/*底部按钮*/
+
+.twobtn {
+    padding-top: 8px;
+    height: 60px;
+    text-align: center;
+}
+
+.twobtn a {
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+    background-color: #448aca;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    width: 49%;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+}
+
+.twobtn a:first-child {
+    border-right: 1px solid #69a1d5;
+    border-radius: 4px 0 0 4px;
+}
+
+.twobtn a:active {
+    background-color: #2f5e89;
+}
+
 
 /*width*/
 
@@ -438,11 +481,18 @@ i.checkd:after {
     display: inline-block;
 }
 
-.mt8{
+.mt8 {
     margin-top: 14px;
 }
 
+
 /*padding*/
-.pb38{
+
+.plr16 {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.pb38 {
     padding-bottom: 38px;
 }

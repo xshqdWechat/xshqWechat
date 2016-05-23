@@ -9,10 +9,9 @@
     <link href="css/clock.css" rel="stylesheet">
     <!--	jquery-->
     <script type="text/javascript" src="lib/jquery.js"></script>
-    <!--	chart.js-->
-    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Core.js"></script>
-    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Doughnut.js"></script>
-    <script type="text/javascript" src="lib/Chart.js-master/src/Chart.Line.js"></script>
+    <script type="text/javascript" src="js/shadow.js"></script>
+    <!--    <script type="text/javascript" src="js/clock.js"></script>-->
+
 
     <!--	mobiscroll-->
     <link href="lib/mobiscroll/dev/css/mobiscroll.core-2.6.2.css" rel="stylesheet">
@@ -46,55 +45,56 @@
             </label>
 
         </li>
-        <li class="tapLi">
+        <li class="tapLi" id='tip'>
             备注
             <span>跑步,运动生命之源！</span>
         </li>
     </ul>
 
-    <div class="repeatDay">
+    <!--   重复弹出-->
+    <div class="repeatDay" id='rdpopUp'>
         <h6>重复</h6>
         <ul class="myCheckbox">
             <li class='clearfix'>
                 <label for="FF"><span>周一</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='FF' value="1">
+                    <input type="checkbox" name="repeatday" id='FF'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="GG"><span>周二</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='GG' value="2">
+                    <input type="checkbox" name="repeatday" id='GG'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="HH"><span>周三</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='HH' value="3">
+                    <input type="checkbox" name="repeatday" id='HH'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="II"><span>周二</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='II' value="4">
+                    <input type="checkbox" name="repeatday" id='II'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="JJ"><span>周五</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='JJ' value="5">
+                    <input type="checkbox" name="repeatday" id='JJ'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="KK"><span>周六</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='KK' value="6">
+                    <input type="checkbox" name="repeatday" id='KK'>
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="EE"><span>周日</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='EE' value="7">
+                    <input type="checkbox" name="repeatday" id='EE'>
                 </label>
             </li>
             <li class="twobtn">
@@ -103,6 +103,16 @@
         </ul>
     </div>
 
+    <!--    备注弹出-->
+    <div class="repeatDay" id='tippopUp'>
+        <h6>闹钟备注</h6>
+        <ul>
+            <li class="myText">
+                <input type="text" placeholder="请输入闹钟备注" maxlength="13">
+            </li>
+            <li class="twobtn"><a href="#" class="btnCancal">取消</a><a href="#" class="btnOK">确定</a></li>
+        </ul>
+    </div>
 
     <div class="pb38"></div>
     <a href="#" class="blueBtn pob">确定</a>
@@ -132,6 +142,31 @@
             $('<div class="selbg"></div>').appendTo($('.dwwc'));
             $('.dw-persp').height(0);
 
+            //            弹出层
+            $('#repeatDay').shadow('#rdpopUp', '.btnCancal', '.btnOK');
+            $('#tip').shadow('#tippopUp', '.btnCancal', '.btnOK');
+            
+            
+            
+            
+            function onChangel(settingObj){
+                this colckSet = {
+                    date : '',
+                    repeatDay :{},
+                    clockType :1,
+                    tip:''
+                };
+                
+                this.UpColckSet = function(){
+                    
+                };
+                
+                this.getColckSet = function(){
+                    return this.colckSet;
+                };
+                
+            }
+
             //            单选
             $('label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
@@ -147,7 +182,7 @@
             })
 
             //            多选
-			var rd = {};
+            var rd = {};
             $('label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
                     return;
@@ -158,8 +193,8 @@
                     } else {
                         $(e).parent().find('.wxCheckbox').removeClass('checkd');
                     }
-					
-					rd[e.id]=e.checked;
+
+                    rd[e.id] = e.checked + 0;
                 })
             })
         })

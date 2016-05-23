@@ -60,9 +60,8 @@ a.blueBtn:active {
 .repeatDay {
     background-color: #fff;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    z-index: 1100;
+    -webkit-transition: top ease-in-out 0.26s;
+    transition: top ease-in-out 0.26s;
 }
 
 .repeatDay h6 {
