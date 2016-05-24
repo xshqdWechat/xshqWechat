@@ -47,7 +47,7 @@
         </li>
         <li class="tapLi" id='tip'>
             备注
-            <span>跑步,运动生命之源！</span>
+            <span></span>
         </li>
     </ul>
 
@@ -58,43 +58,43 @@
             <li class='clearfix'>
                 <label for="FF"><span>周一</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='FF'>
+                    <input type="checkbox" name="repeatday" id='FF' value="周一">
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="GG"><span>周二</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='GG'>
+                    <input type="checkbox" name="repeatday" id='GG' value="周二">
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="HH"><span>周三</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='HH'>
+                    <input type="checkbox" name="repeatday" id='HH' value="周三">
                 </label>
             </li>
             <li class='clearfix'>
-                <label for="II"><span>周二</span>
+                <label for="II"><span>周四</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='II'>
+                    <input type="checkbox" name="repeatday" id='II' value="周四">
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="JJ"><span>周五</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='JJ'>
+                    <input type="checkbox" name="repeatday" id='JJ' value="周五">
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="KK"><span>周六</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='KK'>
+                    <input type="checkbox" name="repeatday" id='KK' value="周六">
                 </label>
             </li>
             <li class='clearfix'>
                 <label for="EE"><span>周日</span>
                     <i class="wxCheckbox fr mt8"></i>
-                    <input type="checkbox" name="repeatday" id='EE'>
+                    <input type="checkbox" name="repeatday" id='EE' value="周日">
                 </label>
             </li>
             <li class="twobtn">
@@ -118,9 +118,106 @@
     <a href="#" class="blueBtn pob">确定</a>
     <script type="text/javascript">
         $(function () {
+            
+            $('.blueBtn').on('click',function(){
+                console.log(clock.colckSet);
+            })
+//            重复日期
+            var rd = {}; 
+            
+//            闹钟数据类
+            function setObj(settingObj) {
+                var self = this;
+                this.colckSet = {
+                    date: '6:30',
+                    repeatDay: {
+                        EE: 1,
+                        FF: 0,
+                        GG: 0,
+                        HH: 1,
+                        II: 0,
+                        JJ: 0,
+                        KK: 0,
+                    },
+                    clockType: 1,
+                    tip: '跑步,运动生命之源！'
+                };
+
+                init();
+
+                //                初始化
+                function init() {
+                    setRepeatDay(self.colckSet);
+                    setClockType(self.colckSet);
+                    setTip(self.colckSet);
+                }
+
+                //                初始化时间
+                function date(params) {}
+
+                //                初始化多选
+                function setRepeatDay(params) {
+                    var repeatDay = $('input[name="repeatday"]');
+                    var repeatStr = '';
+
+                    for (var i = 0, len = repeatDay.length; i < len; i++) {
+                        repeatDay[i].checked = params.repeatDay[repeatDay[i].id];
+                        if (repeatDay[i].checked) {
+                            $(repeatDay[i]).parent().find('.wxCheckbox').addClass('checkd');
+                            repeatStr += repeatDay[i].value + ' ';
+                        } else {
+                            $(repeatDay[i]).parent().find('.wxCheckbox').removeClass('checkd');
+                        }
+                    }
+
+                    $('#repeatDay').find('span').html(repeatStr);
+                }
+
+                this.setRepeatDay = setRepeatDay;
+
+                //                初始化单选
+                function setClockType(params) {
+                    var clockType = $('input[name="clockType"]');
+                    for (var i = 0, len = clockType.length; i < len; i++) {
+                        clockType[i].checked = false;
+                        $(clockType[i]).parent().find('.wxRadio').removeClass('checkd');
+                    }
+                    clockType[params.clockType].checked = true;
+                    $(clockType[params.clockType]).parent().find('.wxRadio').addClass('checkd');
+                }
+                //                初始化备注
+                function setTip(params) {
+                    if (params.tip) {
+                        $('#tip').find('> span').html(params.tip);
+                        $('#tippopUp').find('input[type="text"]').val(params.tip);
+                    }
+                }
+
+                this.setTip = setTip;
+            }
+
+            setObj.prototype.updateColckSet = function (obj) {
+                for (var i in this.colckSet) {
+                    for (var j in obj) {
+                        if (i === j) {
+                            this.colckSet[i] = obj[j];
+                        }
+                    }
+                }
+            };
+
+            setObj.prototype.getColckSet = function () {
+                return this.colckSet;
+            };
+
+            var clock = new setObj();
+
+
+
             //        时间控件
             var myopt = {
                 preset: 'time',
+                theme: 'wp',
                 theme: 'wp',
                 display: 'top',
                 timeWheels: 'HHii',
@@ -131,10 +228,11 @@
                 cancelText: '取消',
                 dateFormat: 'yy-mm-dd',
                 dateOrder: 'yymmdd',
-                onSelect: function (valueText, inst) {
-                    console.log(valueText);
+                onChange: function (valueText, inst) {
+                    clock.updateColckSet({date:valueText});
                 }
             };
+            $('#searchData').val(clock.colckSet.date);
             $('#searchData').mobiscroll(myopt);
             var inst = $('#searchData').mobiscroll('getInst');
             inst.settings.inputShow = true;
@@ -143,46 +241,54 @@
             $('.dw-persp').height(0);
 
             //            弹出层
-            $('#repeatDay').shadow('#rdpopUp', '.btnCancal', '.btnOK');
-            $('#tip').shadow('#tippopUp', '.btnCancal', '.btnOK');
+            $('#repeatDay').shadow('#rdpopUp', '.btnCancal', '.btnOK',function(){
+                clock.setRepeatDay(clock.colckSet);
+                console.log('c!')
+            },function(){
+                clock.updateColckSet({
+                    repeatDay: rd
+                });
+                clock.setRepeatDay(clock.colckSet);
+                console.log('!');
+            });
             
-            
-            
-            
-            function onChangel(settingObj){
-                this colckSet = {
-                    date : '',
-                    repeatDay :{},
-                    clockType :1,
-                    tip:''
-                };
-                
-                this.UpColckSet = function(){
-                    
-                };
-                
-                this.getColckSet = function(){
-                    return this.colckSet;
-                };
-                
-            }
+            $('#tip').shadow('#tippopUp', '.btnCancal', '.btnOK', function () {
+                var orinVal = $('#tip').find('> span').html();
+                $('#tippopUp').find('input[type="text"]').val(orinVal);
+                console.log('c!!')
+            }, function () {
+                clock.updateColckSet({
+                    tip: $('#tippopUp').find('input[type="text"]').val()
+                });
+                clock.setTip(clock.colckSet);
+                console.log('!!');
+            });
+
+
+
+
+
 
             //            单选
             $('label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
                     return;
                 }
-                $(this).parent().find('input[type="radio"]').each(function (i, e) {
+                $(this).parents('.myRadio').find('input[type="radio"]').each(function (i, e) {
                     if (e.checked) {
                         $(e).parent().find('.wxRadio').addClass('checkd');
+                        clock.updateColckSet({
+                            clockType: e.value
+                        });
                     } else {
                         $(e).parent().find('.wxRadio').removeClass('checkd');
                     }
+
                 })
             })
 
             //            多选
-            var rd = {};
+            
             $('label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
                     return;
@@ -193,9 +299,9 @@
                     } else {
                         $(e).parent().find('.wxCheckbox').removeClass('checkd');
                     }
-
                     rd[e.id] = e.checked + 0;
                 })
+                
             })
         })
     </script>

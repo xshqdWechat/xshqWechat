@@ -1,5 +1,13 @@
 (function ($) {
-    function shadow(popUpDiv, closeBtn,okBtn) {
+    /**
+     * 遮罩层
+     * @param {string} popUpDiv 需要遮罩弹出的元素
+     * @param {string} closeBtn 关闭按钮样式名
+     * @param {string} okBtn    确定按钮样式名
+     * @param {function} cloFun   关闭时回调函数
+     * @param {function} okFun    确认时回调函数
+     */
+    function shadow(popUpDiv, closeBtn,okBtn,calFun,okFun) {
         var that = this;
         this.isOpen = false;
         if (popUpDiv !== undefined && typeof popUpDiv !== 'string') {
@@ -10,7 +18,7 @@
             Error.message = '需要传入负责关闭层的的元素';
             throw Error;
         }
-        init(that, popUpDiv, closeBtn,okBtn);
+        init(that, popUpDiv, closeBtn,okBtn,calFun,okFun);
     }
 
     function openWin(pc, sc, shadowDiv, pud) {
@@ -45,7 +53,7 @@
         return wh + st;
     }
 
-    function init(that, pud, cbtn,okBtn) {
+    function init(that, pud, cbtn,okBtn,calFun,okFun) {
         var pc = {},
             sc = {},
             ww, wh,
@@ -74,11 +82,17 @@
         $(cbtn).on('click', function () {
             closeWin(pc, sc, shadowDiv, pud);
             that.isOpen = false;
+            if(calFun){
+                calFun();
+            }
         });
         
         $(okBtn).on('click',function(){
             closeWin(pc, sc, shadowDiv, pud);
             that.isOpen = false;
+            if(okFun){
+                okFun();
+            }
         })
 
         //        绑定弹出
