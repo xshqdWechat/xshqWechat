@@ -91,6 +91,12 @@
 	transition: left 0.15s ease-in-out;
 }
 
+.switch-btn{
+    background: url(../img/switch-btn.png) no-repeat;
+    -webkit-background-size: 30px 20px;
+	background-size: 30px 20px;
+}
+
 .off .swip-btn{
 	left: 30px;
 }

@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: Helvetica, Microsoft YaHei, Arial;
+    font-family: 'Helvetica', 'Microsoft YaHei', 'Arial';
 }
 
 .ovN {
@@ -437,12 +437,14 @@ i.checkd:after {
     background-size: 12px 8px;
 }
 
-.myText input[type='text']{
+.myText input[type='text'] {
     border: 0;
     width: 100%;
     font-size: 12px;
     color: #666;
 }
+
+
 /*底部按钮*/
 
 .twobtn {
@@ -471,6 +473,55 @@ i.checkd:after {
 
 .twobtn a:active {
     background-color: #2f5e89;
+}
+
+
+/*开关*/
+
+.light-btn {
+    position: relative;
+    display: inline-block;
+}
+
+.light-bg {
+    width: 60px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #448aca;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    -webkit-transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.swip-btn {
+    background: url(../img/light-btn.png) no-repeat;
+    width: 30px;
+    height: 20px;
+    -webkit-background-size: 30px 20px;
+    background-size: 30px 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-transition: left 0.15s ease-in-out;
+    transition: left 0.15s ease-in-out;
+}
+
+.switch-btn {
+    background: url(../img/switch-btn.png) no-repeat;
+    -webkit-background-size: 30px 20px;
+    background-size: 30px 20px;
+}
+
+.off .swip-btn {
+    left: 30px;
+}
+
+.off .light-bg {
+    background-color: #ababab;
 }
 
 

@@ -1,0 +1,33 @@
+.clocklist{
+    display: table;
+    width: 100%;
+}
+.clocklist li{
+    display: table-row;
+    height: 68px;
+}
+
+.clocklist li>div{
+    display: table-cell;
+    vertical-align: middle;
+    border-bottom: 1px solid #dfdfdf;
+    font-size: 12px;
+    color:#999;
+    width: 60%;
+    padding-left: 8px;
+    line-height: 24px;
+}
+
+.clocklist li>div:first-child{
+    color: #4f4f4f;
+    font-size: 16px;
+    width: 15%;
+    text-align: center;
+    padding: 0 8px;
+}
+
+.clocklist li>div:last-child{
+    width: 25%;
+    text-align: center;
+    padding: 6px 8px 0 8px;
+}

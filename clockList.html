@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link href="css/goable.css" rel="stylesheet">
+    <link href="css/blactlet-home.css" rel="stylesheet">
+    <link href="css/clocklist.css" rel="stylesheet">
+    <link href="css/clock.css" rel="stylesheet">
+
+    <!--	jquery-->
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <!--    <script type="text/javascript" src="js/clock.js"></script>-->
+
+
+</head>
+
+<body>
+   <div ng-app=''>
+       <input type="text" ng-bind="name">
+       {{name}}
+   </div>
+    <ul class="clocklist">
+        <li>
+            <div>09:55</div>
+            <div>
+                周一 周二 周三 周四 周五 周六 <div>起床 | 早上跑步</div>
+            </div>
+            <div>
+                <div class="light-btn off">
+                    <div class="light-bg box-state">
+                        <span class="flex-1"></span>
+                        <span class="flex-1"></span>
+                    </div>
+                    <div class="swip-btn switch-btn"></div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>09:55</div>
+            <div>
+                周一 周二 周三 周五 <div>起床 | 早上跑步</div>
+            </div>
+            <div>
+                <div class="light-btn off">
+                    <div class="light-bg box-state">
+                        <span class="flex-1"></span>
+                        <span class="flex-1"></span>
+                    </div>
+                    <div class="swip-btn switch-btn"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="pb38"></div>
+    <a href="#" class="blueBtn pob">添加闹钟</a>
+
+    <script type="text/javascript">
+        $(function () {
+            //		开关灯
+            $('.light-btn').each(function(i,e){
+                $(this).on('click',function(){
+                    $(this).toggleClass('off');
+                    if($(this).hasClass('off')){
+                        console.log('关闭第'+i+'个闹钟!');
+                    }else{
+                        console.log('打开第'+i+'个闹钟!');
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
