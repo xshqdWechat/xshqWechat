@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/open/libs/weui/0.4.2/weui.css">
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+
+  
+     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/shadow.js"></script>
+
+    <title>心愿详情</title>
+    </head>
+
+<body style="font-family: 微软雅黑;background: #f5f5f5">
+
+ <div class="all-container">
+    <!--APP外部广告-->
+    <div class="ad">
+       <div class="ad-background"></div>
+       <img class="logo" src="../image/2.jpg">
+       <span class="ad-text fs16">全辅导</span>
+       <span class="ad-text2 fs14">用全辅导，成绩好</span>
+       <a><span class="download fs14">下载APP听课</span></a>
+    </div>
+
+
+
+<!--需求-->
+    <div class="media2 bgw">
+        <div class="media-padding">
+            <div>
+                <img class="media-heading1" src="../image/2.jpg">
+                <span class="name fs16 tac">小狼女</span>
+                <span class="name fs16 tac">&nbsp;&nbsp;发起 &nbsp;&nbsp;</span>
+            </div>
+            <div class="thsBoxMessage fs16 pb10 pt10" style="margin-bottom: 0px;">
+                 高中数学的立体几何好难啊，求开专题课！求开专题课！求开专题课！重要事情说三遍！
+            </div>
+            <div class="diviceBar"></div>
+            <div class="pb10 pt10">
+                <span class="character fs14 pl10 pr10 lh22">物理</span>
+                <span class="character fs14 pl10 pr10 lh22">初三</span>
+                <span class="character fs14 pl10 pr10 lh22">基础一点</span>
+                <span class="fs14 full-right zt2 lh22">今天12:20</span>
+            </div>
+        </div>
+    </div>
+
+<!--进度条-->
+<div class="media2 bgw">
+    <div class="media-padding">
+       <!--未达成-->
+         <span class="undo tac fs16">愿望未达成</span>
+       <!--已达成-->
+         <span class="done tac fs16">恭喜，愿望已达成</span>
+<!--<div class="votebox" style="margin:10px 20px">-->
+         <dl class="barbox tac mt10 ">
+            <dd class="barline">
+            <!--进度-->
+            <div w="30" style="width:0px;" class="charts"></div>
+            </dd>
+            <span class="support fs14">30人支持</span>
+         </dl>
+            <!--按钮-->
+         <div  class="container1 mt10 mb10">
+            <a href="javascript:;" id="btnActionSheet" class="weui_btn weui_btn_default btn-share fs16">分享给朋友获得支持</a>
+         </div>
+    </div>
+</div>
+
+
+
+<!--评论区-->
+<div class="media1 bgw">
+    <div class="media-padding">
+       <span class="title fs16 pt10 pb10 tac">大家都在说</span>
+       <div class="diviceBar" ></div>
+        <div class="pt10 pb10">
+           <div>
+              <img class="media-heading1" src="../image/2.jpg">
+              <span class="name fs16 tac">小狼女</span>
+              <span class="name fs16 tac">&nbsp;&nbsp;今天12:20 &nbsp;&nbsp;</span>
+              <span class="zt fs16 full-right"style="line-height: 35px">
+                <a >
+                  <i class="iconfont " style="font-size: 16px;">&#xe60d;</i> <span >3</span>
+                </a>
+              </span>
+           </div>
+           <div class="thsBoxMessage fs16 ml45">
+            高中数学的立体几何好难啊，求开专题课！求开专题课！求开专题课！重要事情说三遍！
+           </div>
+        </div>
+        <div class="diviceBar" ></div>
+        <div class="pt10 pb10">
+            <div>
+                <img class="media-heading1" src="../image/2.jpg">
+                <span class="name fs16 tac">小狼女</span>
+                <span class="name fs16 tac">&nbsp;&nbsp;今天12:20 &nbsp;&nbsp;</span>
+              <span class="zt fs16 full-right"style="line-height: 35px">
+                <a >
+                    <i class="iconfont " style="font-size: 16px;">&#xe60d;</i> <span >3</span>
+                </a>
+              </span>
+            </div>
+            <div class="thsBoxMessage fs16 ml45">
+                高中数学的立体几何好难啊，求开专题课！求开专题课！求开专题课！重要事情说三遍！
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--底部按钮-->
+
+<div class="bottom-btn " style="">
+    <ul class="list-item">
+        <!--<a data-toggle="modal" data-target=".bs-example-modal-sm" >-->
+        <a href="javascript:;" id="saySomething" >
+            <li style="line-height: 0.4;">
+               <i class="iconfont boticon " style="font-size:23px;">&#xe602;</i>
+               <span class="bottext" id="dialogPopUp">说两句</span>
+            </li>
+        </a>
+            <li>
+               <i class="iconfont " style="color:#e67817;font-size: 42px;  padding-top: 5px;display: inline-block">&#xe60c;</i>
+            </li>
+
+        <!--点击前-->
+        <a href="javascript:;" id="btnDialog1">
+            <li style="line-height: 0.4;">
+               <i class="iconfont boticon " style="font-size:23px;">&#xe605;</i>
+               <span class="bottext">支持Ta</span>
+            </li>
+        </a>
+        <!--点击后-->
+            <li style="line-height: 0.4;">
+                <i class="iconfont boticon " style="font-size:23px;color:#7a7878">&#xe611;</i>
+                <span class="bottext" style="color:#7a7878">已支持</span>
+            </li>
+
+
+
+
+        <!--<a   data-toggle="modal" data-target=".bs-example-modal-sm" ><li class="btn-l fs14">我也说两句</li></a>-->
+        <!--<a ><li class=" fs14"><i class="iconfont " style="font-size: 60px;color:#e67817">&#xe60c;</i></li></a>-->
+        <!-- 未点按钮-->
+            <!--<a ><li class="btn-r fs14">支持Ta</li></a>-->
+        <!-- 点按钮后-->
+            <!--<a ><li class="btn-a fs14">已支持</li></a>-->
+
+           <!--<div class="add-fix2">-->
+               <!--<a href="creat.html"><i class="iconfont " style="font-size: 60px;color:#e67817">&#xe60c;</i></a>-->
+
+          <!--</div>-->
+        </ul>
+
+    </div>
+</div>
+
+ <!--<div class="container1">-->
+     <!--<a href="javascript:;" id="btnDialog" class="weui_btn weui_btn_default">Dialog</a>-->
+ <!--</div>-->
+ <!--<div class="add-fix">-->
+     <!--<a href="creat.html"><i class="iconfont " style="font-size: 48px;color:#e67817">&#xe60c;</i></a>-->
+ <!--</div>-->
+
+
+
+    <script >
+        function animate(){
+            $(".charts").each(function(i,item){
+                var a=parseInt($(item).attr("w"));
+                $(item).animate({
+                    width: a+"%"
+                },1000);
+            });
+        }
+        animate();
+    </script>
+
+
+<script>
+    $(function () {
+        $('.container1').on('click', '#btnDialog', function (e) {
+            $.weui.dialog({
+                title: '<img class="sftx" src="../image/1.jpg">你的身份是 <b><span style="color:crimson">狼人</span></b>,说两句吧',
+                content: '<textarea type="text" class="form-control " style="font-size:16px;margin-top:0px;border-radius: 0px;" placeholder="说两句..." aria-describedby="basic-addon2"></textarea>',
+                buttons: [{
+                    label: '取消',
+                    type: 'default',
+                    onClick: function (){
+                        console.log('取消......');
+                    }
+                }, {
+                    label: '评论',
+                    type: 'primary',
+                    onClick: function (){
+                        console.log('评论......');
+                    }
+                }]
+            });
+        }).on('click', '#btnDialog1', function (e) {
+            $.weui.dialog({
+                title: '',
+                content: '<div class="dialog-content2"><div class="tac "><span class="ok fs18 pb10"><b>支持成功！</b></span><span class="ok2 fs16 pb10">愿望达成后即可参与课程</span><div class="input-container"><div class="input-group input-tel pb10"><input type="text" class="form-control" style="border-radius:5px;font-size:16px;height: 44px;" placeholder="填写手机获取开课通知"></div><div class="input-group input-tel" style="margin-bottom: 30px;"><input type="text" class="form-control" placeholder="输入验证码" style="font-size:16px;margin-top:0px;height: 44px;"><span class=" input-group-addon" style="color:#fff;background-color: #e67817; border: 1px solid #e67817">获取验证码</span>',
+                buttons: [{
+                    label: '取消',
+                    type: 'default',
+                    onClick: function (){
+                        console.log('取消......');
+                    }
+                }, {
+                    label: '提交',
+                    type: 'primary',
+                    onClick: function (){
+                        console.log('提交......');
+                    }
+                }]
+            });
+        }).on('click', '#btnToast', function (e) {
+            $.weui.toast('提交成功');
+        }).on('click', '#btnToast2', function (e) {
+            $.weui.toast('提交成功');
+        }).on('click', '#btnToast', function (e) {
+            $.weui.toast('已发布');
+        }).on('click', '#btnLoading', function (e) {
+            $.weui.loading('数据加载中...');
+            setTimeout($.weui.hideLoading, 3000);
+        }).on('click', '#btnActionSheet', function (e) {
+            $.weui.actionSheet([{
+                label: 'QQ空间',
+                onClick: function (){
+                    console.log('click1');
+                }
+            },{
+                label: '复制链接',
+                onClick: function (){
+                    console.log('click2');
+                }
+            },]);
+        });
+    });
+</script>
+
+ <script>
+
+     $('#saySomething').shadow('#popupWarp');
+
+ </script>
+
+<!--评论弹出框-->
+<div class="modal fade bs-example-modal-sm" id='popupWarp'>
+    <div class="self-define  modal-sm " style="width: 100%;">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="dialog-content">
+                <div class="dialog_hd fs16">
+                    <img class="sftx" src="../image/1.jpg">
+                      你的身份是 <b><span style="color:crimson">狼人</span></b> ,说两句吧
+                </div>
+                <div class="input-group container1">
+                    <input type="text" class="form-control" style="margin-top:0px;border-radius: 0px;" placeholder="" aria-describedby="basic-addon2">
+                    <span class="input-group-addon" href="javascript:;" id="btnToast"  style="border-radius: 0px;" id="basic-addon2">提交</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">-->
+     <!--<div class="self-define  modal-sm " style="width: 100%;">-->
+         <!--<div class="modal-content" style="border-radius: 0px;">-->
+             <!--<div class="dialog-content">-->
+                 <!--<div class="dialog_hd fs16">-->
+                     <!--<img class="sftx" src="../image/1.jpg">-->
+                     <!--你的身份是 <b><span style="color:crimson">狼人</span></b> ,说两句吧-->
+                 <!--</div>-->
+                 <!--<div class="input-group container1">-->
+                     <!--<input type="text" class="form-control" style="margin-top:0px;border-radius: 0px;" placeholder="" aria-describedby="basic-addon2">-->
+                     <!--<span class="input-group-addon" href="javascript:;" id="btnToast"  style="border-radius: 0px;" id="basic-addon2">提交</span>-->
+                 <!--</div>-->
+             <!--</div>-->
+         <!--</div>-->
+     <!--</div>-->
+ <!--</div>-->
+ <!--填写手机号码弹出框-->
+<!--<div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">-->
+ <!--<div class="self-define2  modal-sm " style="width: 90%;">-->
+     <!--<div class="modal-content" style="border-radius: 10px;">-->
+         <!--<div class="dialog-content2">-->
+             <!--<div class="tac ">-->
+                 <!--<span class="ok fs18 pb10"><b>支持成功！</b></span>-->
+                 <!--<span class="ok2 fs16 pb10">愿望达成后即可参与课程</span>-->
+
+                 <!--<div class="input-container">-->
+                     <!--<div class="input-group input-tel pb10">-->
+                         <!--<input type="text" class="form-control" style="border-radius:5px;height: 44px;" placeholder="填写手机获取开课通知">-->
+                     <!--</div>-->
+                     <!--<div class="input-group input-tel">-->
+                         <!--<input type="text" class="form-control" placeholder="输入验证码" style="margin-top:0px;height: 44px;">-->
+                <!--<span class=" input-group-addon" style="color:#fff;background-color: #e67817; border: 1px solid #e67817">-->
+                    <!--获取验证码-->
+                <!--</span>-->
+                     <!--</div>-->
+                 <!--</div>-->
+             <!--</div>-->
+
+             <!--<div  class="container1 mt10 mb10">-->
+                 <!--<a href="javascript:;" id="btnToast2" class="weui_btn weui_btn_default btn-share fs16"-->
+                    <!--style="width: 90%;">提交</a>-->
+             <!--</div>-->
+         <!--</div>-->
+     <!--</div>-->
+ <!--</div>-->
+ <!--</div>-->
+
+
+    </body>
+    </html>
