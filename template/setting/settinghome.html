@@ -1,4 +1,18 @@
-settingHomesdf
-
-
-<a href="#" ui-sref='setClock'>clock</a>
+<div class="settingHome">
+    <div class="equalCar clearfix" ng-repeat="device in deviceList">
+        <span ng-bind="device.name"></span>
+        <div class="fr"><a ui-sref="deviceSetting({id:device.id,name:device.name})" class="lr">设置</a></div>
+    </div>
+    <!--<div class="equalCar clearfix">-->
+        <!--<span>碧德心率手环</span>-->
+        <!--<div class="fr"><a href="" class="lr">设置</a></div>-->
+    <!--</div>-->
+    <!--<div class="equalCar clearfix">-->
+        <!--<span>香山体重秤</span>-->
+        <!--<div class="fr"><a href="" class="lr">设置</a></div>-->
+    <!--</div>-->
+    <!--<div class="equalCar clearfix">-->
+        <!--<span>香山心率秤</span>-->
+        <!--<div class="fr"><a href="" class="lr">设置</a></div>-->
+    <!--</div>-->
+</div>

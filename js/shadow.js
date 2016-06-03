@@ -11,7 +11,6 @@
         var that = this;
         this.isOpen = false;
         this.position = popDivPos || 'bottom';
-        console.log(this.position);
         if (popUpDiv !== undefined && typeof popUpDiv !== 'string') {
             Error.message = '需要传入弹出的层';
             throw Error;
@@ -32,7 +31,7 @@
         
         if (that.position=='top') {
             //        顶部
-            pc.top = getH() - getH(2)- $(pud).height();
+            pc.top = getH() - getH(2);
         } else if (that.position=='center') {
             //        居中
             pc.top = getH() - getH(2) / 2 - $(pud).height() / 2;

@@ -5,3 +5,12 @@ angular.module('setting.directives',[])
         template:''
     }
 })
+.directive('wxRadio',[function () {
+    return {
+        restrict: 'EA',
+        scope:{},
+        transclude:'element',
+        replace:true,
+        template:'<span ng-transclude></span>'
+    }
+}])

@@ -276,25 +276,21 @@
             //            弹出层
             $('#repeatDay').shadow('top','#rdpopUp', '.btnCancal', '.btnOK',function(){
                 clock.setRepeatDay(clock.colckSet);
-                console.log('c!')
             },function(){
                 clock.updateColckSet({
                     repeatDay: rd
                 });
                 clock.setRepeatDay(clock.colckSet);
-                console.log('!');
             });
             
             $('#tip').shadow('center','#tippopUp', '.btnCancal', '.btnOK', function () {
                 var orinVal = $('#tip').find('> span').html();
                 $('#tippopUp').find('input[type="text"]').val(orinVal);
-                console.log('c!!')
             }, function () {
                 clock.updateColckSet({
                     tip: $('#tippopUp').find('input[type="text"]').val()
                 });
                 clock.setTip(clock.colckSet);
-                console.log('!!');
             });
 
 
@@ -303,7 +299,7 @@
 
 
             //            单选
-            $('label').on('click', function (e) {
+            $('.myRadio label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
                     return;
                 }
@@ -322,7 +318,7 @@
 
             //            多选
             
-            $('label').on('click', function (e) {
+            $('.myCheckbox label').on('click', function (e) {
                 if (e.target.tagName != "INPUT") {
                     return;
                 }

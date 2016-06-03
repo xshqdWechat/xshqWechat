@@ -105,3 +105,12 @@ span.ok{
     -webkit-background-size: 18px 18px;
     background-size: 18px 18px;
 }
+
+.settingHome .equalCar{
+    margin-top:0;
+    border-bottom: none;
+}
+
+.settingHome .equalCar:last-child{
+    border-bottom: 1px solid #dfdfdf;
+}

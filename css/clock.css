@@ -2,9 +2,19 @@
     font-family: '微软雅黑';
 }
 
+html,body{
+    height: 100%;
+}
+
 .clockOptions {
     font-size: 16px;
     margin-top: 198px;
+}
+
+.noClock{
+    margin-top: 0;
+    height:100%;
+    background-color: #fff;
 }
 
 .clockOptions li {
