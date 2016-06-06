@@ -1,24 +1,33 @@
 <ul class="clockOptions noClock">
     <li>
-        {{id}}--
-    <wx-radio>{{id}}</wx-radio>
+        <!--{{id}}&#45;&#45;-->
+    <!--<wx-radio>{{id}}</wx-radio>-->
     </li>
-    <li class="tapLi" id='repeatDay'>
+<!--    <li class="tapLi" id='repeatDay'>
         重复
         <span>周一 周二 周三 周四 周五 周六 </span>
-    </li>
-    <li class="myRadio">
-        类型
-        <label for='wakeUp'><span>起床<i class="wxRadio checkd"></i></span>
-            <input type="radio" name='clockType' value="0" id='wakeUp'>
-        </label>
-        <label for='medicine'><span>吃药<i class="wxRadio"></i></span>
-            <input type="radio" name='clockType' value="1" id='medicine'>
-        </label>
+    </li>-->
+    <li>
+        <div wx-radio>
+            {{clockType.typeNameStr}}
+            <div wx-radio-item ng-repeat="attr in clockType.attr">
+                <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':attr.checked} class="wxRadio"></i></span>
+                    <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}'>
+                </label>
+            </div>
+
+        </div>
+        <!--类型-->
+        <!--<label for='wakeUp'><span>起床<i class="wxRadio checkd"></i></span>-->
+            <!--<input type="radio" name='clockType' value="0" id='wakeUp'>-->
+        <!--</label>-->
+        <!--<label for='medicine'><span>吃药<i class="wxRadio"></i></span>-->
+            <!--<input type="radio" name='clockType' value="1" id='medicine'>-->
+        <!--</label>-->
 
     </li>
-    <li class="tapLi" id='tip'>
-        备注
-        <span></span>
-    </li>
+    <!--<li class="tapLi" id='tip'>-->
+        <!--备注-->
+        <!--<span></span>-->
+    <!--</li>-->
 </ul>

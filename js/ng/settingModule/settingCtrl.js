@@ -1,27 +1,47 @@
 angular.module('setting.controllers', [])
-    .controller('settingHomeCtrl', ['$scope',function ($scope) {
+    .controller('settingHomeCtrl', ['$scope', function ($scope) {
         // 数据列表
         $scope.deviceList = [
             {
-                id:'JDheartRate',
-                name:'碧德心率手环'
+                id: 'JDheartRate',
+                name: '碧德心率手环'
 
             },
             {
-                id:'cammyWeightScale',
-                name:'香山体重秤'
+                id: 'cammyWeightScale',
+                name: '香山体重秤'
             },
             {
-                id:'cammyHeartRateScale',
-                name:'香山心率秤'
+                id: 'cammyHeartRateScale',
+                name: '香山心率秤'
             }
         ];
     }])
-    .controller('deviceSettingCtrl',['$scope','$stateParams',function ($scope,$stateParams) {
+    .controller('deviceSettingCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
         $scope.id = $stateParams.id;
         $scope.name = $stateParams.name;
+        $scope.clockType = {
+            typeNameStr: '类型',
+            typeName: 'clockType',
+            attr: [
+                {
+                    NameStr: '起床',
+                    value: '0',
+                    id: 'wakeUp',
+                    checked:true
+                },
+                {
+                    NameStr: '吃药',
+                    value: '1',
+                    id: 'medicine'
+                }
+            ]
+        };
+
+
+
     }])
-    .controller('clockCtrl',['$scope', function ($scope) {
+    .controller('clockCtrl', ['$scope', function ($scope) {
         $(function () {
             //		开关灯
             $('.light-btn').each(function (i, e) {
@@ -37,4 +57,5 @@ angular.module('setting.controllers', [])
         })
 
     }])
-    .controller('clockSettingCtrl', ['$scope',function ($scope) {}])
+    .controller('clockSettingCtrl', ['$scope', function ($scope) {
+    }])
