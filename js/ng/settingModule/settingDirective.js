@@ -36,12 +36,16 @@ angular.module('setting.directives', [])
          */
         return {
             restrict: 'EA',
-            scope: {},
             transclude: true,
             replace: true,
             template: '<div class="myRadio" ng-transclude></div>',
             controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-
+                    this.selected = function (n) {
+                        for(var i=0,len=$scope.clockType.attr.length;i<len;i++){
+                            i!=n?$scope.clockType.attr[i].checked = false: $scope.clockType.attr[i].checked = true;
+                        }
+                        $scope.$apply();
+                    }
             }]
 
         }
@@ -50,16 +54,17 @@ angular.module('setting.directives', [])
         return {
             restrict: 'EA',
             require: '',
+            scope:{index:'@'},
             replace: true,
             transclude: true,
             require: '^wxRadio',
             template: '<ng-transclude></ng-transclude>',
-            link: function (scope, ele, attrs) {
+            link: function (scope, ele, attrs,wxRadioCtr) {
                 ele.find('label').on('click',function (e) {
                     if(e.target.tagName != 'INPUT'){
                         return;
                     }
-                    console.log(e.target.tagName);
+                    wxRadioCtr.selected(scope.index);
                 })
             }
         }

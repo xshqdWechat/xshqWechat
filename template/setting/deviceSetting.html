@@ -10,7 +10,7 @@
     <li>
         <div wx-radio>
             {{clockType.typeNameStr}}
-            <div wx-radio-item ng-repeat="attr in clockType.attr">
+            <div wx-radio-item ng-repeat="attr in clockType.attr" index="{{$index}}">
                 <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':attr.checked} class="wxRadio"></i></span>
                     <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}'>
                 </label>

@@ -28,18 +28,16 @@ angular.module('setting.controllers', [])
                     NameStr: '起床',
                     value: '0',
                     id: 'wakeUp',
-                    checked:true
+                    checked:false
                 },
                 {
                     NameStr: '吃药',
                     value: '1',
-                    id: 'medicine'
+                    id: 'medicine',
+                    checked:true
                 }
             ]
         };
-
-
-
     }])
     .controller('clockCtrl', ['$scope', function ($scope) {
         $(function () {
