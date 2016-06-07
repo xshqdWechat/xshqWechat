@@ -1,33 +1,36 @@
 <ul class="clockOptions noClock">
     <li>
+        <div test testr="test"></div>
         <!--{{id}}&#45;&#45;-->
-    <!--<wx-radio>{{id}}</wx-radio>-->
+        <!--<wx-radio>{{id}}</wx-radio>-->
     </li>
-<!--    <li class="tapLi" id='repeatDay'>
-        重复
-        <span>周一 周二 周三 周四 周五 周六 </span>
-    </li>-->
+    <!--    <li class="tapLi" id='repeatDay'>
+            重复
+            <span>周一 周二 周三 周四 周五 周六 </span>
+        </li>-->
     <li>
-        <div wx-radio>
+        <div wx-radio source="clockType">
             {{clockType.typeNameStr}}
             <div wx-radio-item ng-repeat="attr in clockType.attr" index="{{$index}}">
-                <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':attr.checked} class="wxRadio"></i></span>
-                    <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}'>
+                <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat.clockType==attr.value} class="wxRadio"></i></span>
+                    <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}' ng-model="dataFormat.clockType">
                 </label>
             </div>
-
         </div>
-        <!--类型-->
-        <!--<label for='wakeUp'><span>起床<i class="wxRadio checkd"></i></span>-->
-            <!--<input type="radio" name='clockType' value="0" id='wakeUp'>-->
-        <!--</label>-->
-        <!--<label for='medicine'><span>吃药<i class="wxRadio"></i></span>-->
-            <!--<input type="radio" name='clockType' value="1" id='medicine'>-->
-        <!--</label>-->
+    </li>
 
+
+    <li>
+        <div switch-btn class="light-btn" ng-class={'off':!switchData.value}>
+            <div class="light-bg box-state">
+                <span class="flex-1"></span>
+                <span class="flex-1"></span>
+            </div>
+            <div class="swip-btn switch-btn"></div>
+        </div>
     </li>
     <!--<li class="tapLi" id='tip'>-->
-        <!--备注-->
-        <!--<span></span>-->
+    <!--备注-->
+    <!--<span></span>-->
     <!--</li>-->
 </ul>

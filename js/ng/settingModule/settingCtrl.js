@@ -20,40 +20,66 @@ angular.module('setting.controllers', [])
     .controller('deviceSettingCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
         $scope.id = $stateParams.id;
         $scope.name = $stateParams.name;
+
+        $scope.dataFormat = {
+            deviceName:'A',
+            id:'A-a',
+            light:true,
+            lightDay:{
+                aa:1,
+                bb:0,
+                cc:1,
+                dd:1,
+                ee:0
+            },
+            clockType:1
+        };
+
+        $scope.dataFormat2 = {
+            deviceName:'A',
+            id:'A-a',
+            light:true,
+            lightDay:{
+                aa:1,
+                bb:0,
+                cc:1,
+                dd:1,
+                ee:0
+            },
+            clockType:0
+        };
+
+        // 单选
+
+        $scope.abc = {};
+        $scope.abc.name = 'haha';
         $scope.clockType = {
             typeNameStr: '类型',
             typeName: 'clockType',
             attr: [
                 {
                     NameStr: '起床',
-                    value: '0',
+                    value: 0,
                     id: 'wakeUp',
-                    checked:false
                 },
                 {
                     NameStr: '吃药',
-                    value: '1',
+                    value: 1,
                     id: 'medicine',
-                    checked:true
                 }
             ]
         };
-    }])
-    .controller('clockCtrl', ['$scope', function ($scope) {
-        $(function () {
-            //		开关灯
-            $('.light-btn').each(function (i, e) {
-                $(this).on('click', function () {
-                    $(this).toggleClass('off');
-                    if ($(this).hasClass('off')) {
-                        console.log('关闭第' + i + '个闹钟!');
-                    } else {
-                        console.log('打开第' + i + '个闹钟!');
-                    }
-                })
-            })
-        })
 
+        $scope.test = {name:'hahah'};
+        // 开关数据
+        $scope.switchData = {
+                typeNameStr: '闹钟1',
+                value: true
+            };
+        
+        $scope.switch = function () {
+            
+        }
     }])
     .controller('clockSettingCtrl', ['$scope', function ($scope) {
     }])
