@@ -25,14 +25,16 @@ angular.module('setting.directives', [])
      }]
      */
     /* htmlEg
-     <div wx-radio>
-     {{clockType.typeNameStr}}
-     <div wx-radio-item ng-repeat="attr in clockType.attr" index="{{$index}}">
-     <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':attr.checked} class="wxRadio"></i></span>
-     <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}'>
+     <div wx-radio source="dataFormat">
+     {{clockType2.typeNameStr}}
+     <div wx-radio-item ng-repeat="attr in clockType2.attr" index="{{$index}}">
+     <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat2.clockType==attr.value} class="wxRadio"></i></span>
+     <input type="radio" name='{{clockType2.typeName}}' value="{{attr.value}}" id='{{attr.id}}' ng-model="dataFormat2.clockType">
      </label>
      </div>
      </div>
+
+     @source:需要传输的数据源
      */
     .directive('wxRadio', [function () {
         return {
@@ -44,10 +46,8 @@ angular.module('setting.directives', [])
             controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
                 this.selected = function (n){
                     $scope.$apply(function () {
-                        for (var i = 0, len = $scope.source.attr.length; i < len; i++) {
-                            i != n ? $scope.source.attr[i].checked = false : $scope.source.attr[i].checked = true;
-                        }
-                        console.log($scope.dataFormat);
+                        // DoSomeThing
+                        console.log($scope.source);
                     });
                 }
             }]
@@ -76,8 +76,7 @@ angular.module('setting.directives', [])
     .directive('switchBtn',function () {
         return {
             restrict:'EA',
-            link:function (scope,ele,attrs) {
-            }
+            tamplate:'<div class="light-bg box-state"><span class="flex-1"></span><span class="flex-1"></span></div><div class="swip-btn switch-btn"></div>'
         }
     })
 

@@ -32,11 +32,12 @@ angular.module('setting.controllers', [])
                 dd:1,
                 ee:0
             },
-            clockType:1
+            clockType:1,
+            clockType2:1
         };
 
         $scope.dataFormat2 = {
-            deviceName:'A',
+            deviceName:'B',
             id:'A-a',
             light:true,
             lightDay:{
@@ -51,8 +52,6 @@ angular.module('setting.controllers', [])
 
         // 单选
 
-        $scope.abc = {};
-        $scope.abc.name = 'haha';
         $scope.clockType = {
             typeNameStr: '类型',
             typeName: 'clockType',
@@ -66,6 +65,23 @@ angular.module('setting.controllers', [])
                     NameStr: '吃药',
                     value: 1,
                     id: 'medicine',
+                }
+            ]
+        };
+
+        $scope.clockType2 = {
+            typeNameStr: '类型',
+            typeName: 'clockType',
+            attr: [
+                {
+                    NameStr: '起床',
+                    value: 0,
+                    id: 'wakeUp2',
+                },
+                {
+                    NameStr: '吃药',
+                    value: 1,
+                    id: 'medicine2',
                 }
             ]
         };

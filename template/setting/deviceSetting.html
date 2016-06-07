@@ -1,15 +1,13 @@
 <ul class="clockOptions noClock">
     <li>
         <div test testr="test"></div>
-        <!--{{id}}&#45;&#45;-->
-        <!--<wx-radio>{{id}}</wx-radio>-->
     </li>
     <!--    <li class="tapLi" id='repeatDay'>
             重复
             <span>周一 周二 周三 周四 周五 周六 </span>
         </li>-->
     <li>
-        <div wx-radio source="clockType">
+        <div wx-radio source="dataFormat">
             {{clockType.typeNameStr}}
             <div wx-radio-item ng-repeat="attr in clockType.attr" index="{{$index}}">
                 <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat.clockType==attr.value} class="wxRadio"></i></span>
@@ -19,9 +17,20 @@
         </div>
     </li>
 
+    <li>
+        <div wx-radio source="dataFormat">
+            {{clockType2.typeNameStr}}
+            <div wx-radio-item ng-repeat="attr in clockType2.attr" index="{{$index}}">
+                <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat.clockType2==attr.value} class="wxRadio"></i></span>
+                    <input type="radio" name='{{clockType2.typeName}}' value="{{attr.value}}" id='{{attr.id}}' ng-model="dataFormat.clockType2">
+                </label>
+            </div>
+        </div>
+    </li>
+
 
     <li>
-        <div switch-btn class="light-btn" ng-class={'off':!switchData.value}>
+        <div switch-btn class="light-btn" ng-class={'off':!dataFormat.light} ng-click="dataFormat.light=!dataFormat.light">
             <div class="light-bg box-state">
                 <span class="flex-1"></span>
                 <span class="flex-1"></span>
