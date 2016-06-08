@@ -22,32 +22,36 @@ angular.module('setting.controllers', [])
         $scope.name = $stateParams.name;
 
         $scope.dataFormat = {
-            deviceName:'A',
-            id:'A-a',
-            light:true,
-            lightDay:{
-                aa:1,
-                bb:0,
-                cc:1,
-                dd:1,
-                ee:0
+            deviceName: 'A',
+            id: 'A-a',
+            light: true,
+            lightDay:  {
+                EE: 1,
+                FF: 0,
+                GG: 0,
+                HH: 1,
+                II: 0,
+                JJ: 0,
+                KK: 0
             },
-            clockType:1,
-            clockType2:1
+            clockType: 0,
+            clockType2: 1
         };
 
         $scope.dataFormat2 = {
-            deviceName:'B',
-            id:'A-a',
-            light:true,
-            lightDay:{
-                aa:1,
-                bb:0,
-                cc:1,
-                dd:1,
-                ee:0
+            deviceName: 'B',
+            id: 'A-a',
+            light: true,
+            lightDay: {
+                EE: 1,
+                FF: 0,
+                GG: 0,
+                HH: 1,
+                II: 0,
+                JJ: 0,
+                KK: 0
             },
-            clockType:0
+            clockType: 0
         };
 
         // 单选
@@ -71,7 +75,7 @@ angular.module('setting.controllers', [])
 
         $scope.clockType2 = {
             typeNameStr: '类型',
-            typeName: 'clockType',
+            typeName: 'clockType2',
             attr: [
                 {
                     NameStr: '起床',
@@ -86,15 +90,56 @@ angular.module('setting.controllers', [])
             ]
         };
 
-        $scope.test = {name:'hahah'};
         // 开关数据
         $scope.switchData = {
-                typeNameStr: '闹钟1',
-                value: true
-            };
-        
+            typeNameStr: '闹钟1',
+            value: true
+        };
+
+        // 多选数据
+        $scope.checkboxData = {
+            typeNameStr: '重复',
+            typeName: 'repeatday',
+            attr: [
+                {
+                    nameStr: '周日',
+                    value: 1,
+                    id: 'EE'
+                },
+                {
+                    nameStr: '周一',
+                    value: 1,
+                    id: 'FF'
+                },
+                {
+                    nameStr: '周二',
+                    value: 1,
+                    id: 'GG'
+                },
+                {
+                    nameStr: '周三',
+                    value: 1,
+                    id: 'HH'
+                },
+                {
+                    nameStr: '周四',
+                    value: 1,
+                    id: 'II'
+                },
+                {
+                    nameStr: '周五',
+                    value: 1,
+                    id: 'JJ'
+                },
+                {
+                    nameStr: '周六',
+                    value: 1,
+                    id: 'KK'
+                }
+            ]
+        };
         $scope.switch = function () {
-            
+
         }
     }])
     .controller('clockSettingCtrl', ['$scope', function ($scope) {

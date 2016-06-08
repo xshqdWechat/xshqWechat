@@ -1,4 +1,4 @@
-angular.module('setting', ['ui.router','setting.controllers','setting.directives'])
+angular.module('setting', ['ui.router','setting.controllers','setting.directives','setting.service'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('settingHome', {

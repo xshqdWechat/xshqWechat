@@ -9,7 +9,7 @@ angular.module('setting.directives', [])
     /* 单选按钮指令
      dataFormat
      [
-     {typeNameStr:'类型',
+     {typeNameStr:'类型'
      typeName:'clockType',
      attribute:[{
      NameStr:'起床',
@@ -41,10 +41,10 @@ angular.module('setting.directives', [])
             restrict: 'EA',
             transclude: true,
             replace: true,
-            scope:{source:'='},
+            scope: {source: '='},
             template: '<div class="myRadio" ng-transclude></div>',
             controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-                this.selected = function (n){
+                this.selected = function (n) {
                     $scope.$apply(function () {
                         // DoSomeThing
                         console.log($scope.source);
@@ -53,7 +53,7 @@ angular.module('setting.directives', [])
             }]
         }
     }])
-      .directive('wxRadioItem', [function () {
+    .directive('wxRadioItem', [function () {
         return {
             restrict: 'EA',
             scope: {index: '@'},
@@ -72,24 +72,69 @@ angular.module('setting.directives', [])
         }
     }])
 
-// 开关指令
-    .directive('switchBtn',function () {
+    // 开关指令
+
+    /*    <div switch-btn class="light-btn" ng-class={'off':!dataFormat.light} ng-click="dataFormat.light=!dataFormat.light">
+     <div class="light-bg box-state">
+     <span class="flex-1"></span>
+     <span class="flex-1"></span>
+     </div>
+     <div class="swip-btn switch-btn"></div>
+     </div>*/
+    // @ng-click 操作的数据
+    .directive('switchBtn', function () {
         return {
-            restrict:'EA',
-            tamplate:'<div class="light-bg box-state"><span class="flex-1"></span><span class="flex-1"></span></div><div class="swip-btn switch-btn"></div>'
+            restrict: 'EA',
+            tamplate: '<div class="light-bg box-state"><span class="flex-1"></span><span class="flex-1"></span></div><div class="swip-btn switch-btn"></div>'
         }
     })
 
-    .directive('test',function () {
+    // 多选指令
+    .directive('wxCheckbox', [function () {
+        return {
+            restrict: 'EA',
+            template: '<span>{{isSelect}}</span><ng-transclude></ng-transclude>',
+            scope: {
+                source: '=',
+                insteadArr:'='
+            },
+            transclude:true,
+            controller: ['$scope', '$filter', function ($scope, $filter) {
+                $scope.isSelect = $filter('isSelect')($scope.source,$scope.insteadArr);
+                this.selected = function () {
+                    console.log($scope.source);
+                    $scope.$apply(function () {
+                        $scope.isSelect = $filter('isSelect')($scope.source,$scope.insteadArr);
+                    })
+                }
+            }]
+        }
+    }])
+    .directive('wxCheckboxItem',[function () {
         return {
             restrict:'EA',
-            scope:{testr:'='},
-            controller:['$scope',function ($scope) {
+            require:'^wxCheckbox',
+            link:function (scope,ele,attrs,wxCheckboxCtr) {
+                ele.find('label').on('click', function (e) {
+                    if (e.target.tagName != 'INPUT') {
+                        return;
+                    }
+                    wxCheckboxCtr.selected();
+                });
+            }
+        }
+    }])
+    // 测试
+    .directive('test', function () {
+        return {
+            restrict: 'EA',
+            scope: {testr: '='},
+            controller: ['$scope', function ($scope) {
 
             }],
-            template:'123 {{testr}}',
-            link:function (scope,ele,attrs) {
-                ele.on('click',function () {
+            template: '123 {{testr}}',
+            link: function (scope, ele, attrs) {
+                ele.on('click', function () {
                     console.log(scope.testr);
                 })
             }
