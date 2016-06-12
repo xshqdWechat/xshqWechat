@@ -21,6 +21,8 @@ angular.module('setting.controllers', [])
         $scope.id = $stateParams.id;
         $scope.name = $stateParams.name;
 
+        $scope.abc = 'abcdefg';
+
         $scope.dataFormat = {
             deviceName: 'A',
             id: 'A-a',

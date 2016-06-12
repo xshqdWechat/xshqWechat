@@ -50,15 +50,16 @@
     <li>
         <div wx-checkbox class="wxCheckboxtap" source="dataFormat.lightDay" instead-arr="['周日','周一','周二','周三','周四','周五','周六']">
             <!--   重复弹出-->
-            <div class="repeatDay" id='rdpopUp'>
+            <div popup-div class="repeatDay" id='rdpopUp'>
                 <h6>{{checkboxData.typeNameStr}}</h6>
                 <ul class="myCheckbox">
-                    <li wx-checkbox-item class='clearfix' ng-repeat="checkbox in checkboxData.attr">
-                        <label for="{{checkbox.id}}"><span ng-bind="checkbox.nameStr"></span>
-                            <i class="wxCheckbox fr mt8" ng-class={'checkd':checkbox.value==dataFormat.lightDay[checkbox.id]}></i>
-                            <input type="checkbox" name="{{checkboxData.typeName}}" id='{{checkbox.id}}' ng-true-value="{{checkbox.value}}" ng-false-value='0' ng-checked="dataFormat.lightDay[checkbox.id]" ng-model="dataFormat.lightDay[checkbox.id]">
-                        </label>
-                    </li>
+                    <div>{{abc}}</div>
+                    <!--<li wx-checkbox-item class='clearfix' ng-repeat="checkbox in checkboxData.attr">-->
+                        <!--<label for="{{checkbox.id}}"><span ng-bind="checkbox.nameStr"></span>-->
+                            <!--<i class="wxCheckbox fr mt8" ng-class={'checkd':checkbox.value==dataFormat.lightDay[checkbox.id]}></i>-->
+                            <!--<input type="checkbox" name="{{checkboxData.typeName}}" id='{{checkbox.id}}' ng-true-value="{{checkbox.value}}" ng-false-value='0' ng-checked="dataFormat.lightDay[checkbox.id]" ng-model="dataFormat.lightDay[checkbox.id]">-->
+                        <!--</label>-->
+                    <!--</li>-->
                     <li class="twobtn">
                         <a href="#" class="btnCancal">取消</a><a href="#" class="btnOK">确定</a>
                     </li>

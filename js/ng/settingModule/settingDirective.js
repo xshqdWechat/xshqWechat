@@ -72,6 +72,7 @@ angular.module('setting.directives', [])
         }
     }])
 
+
     // 开关指令
 
     /*    <div switch-btn class="light-btn" ng-class={'off':!dataFormat.light} ng-click="dataFormat.light=!dataFormat.light">
@@ -90,37 +91,110 @@ angular.module('setting.directives', [])
     })
 
     // 多选指令
-    .directive('wxCheckbox', [function () {
+    .directive('wxCheckbox', ['$compile',function ($compile) {
         return {
             restrict: 'EA',
-            template: '<span>{{isSelect}}</span><ng-transclude></ng-transclude>',
+            template: '<span>{{isSelect}}</span><ng-transclude></ng-transclude><div shadow></div>',
             scope: {
                 source: '=',
-                insteadArr:'='
+                insteadArr: '='
             },
-            transclude:true,
-            controller: ['$scope', '$filter', function ($scope, $filter) {
-                $scope.isSelect = $filter('isSelect')($scope.source,$scope.insteadArr);
+            transclude: true,
+            compile:function (ele,attr,transcludeFn) {
+                return function (scope,ele,attr) {
+                    transcludeFn(scope, function (clone) {
+                        console.log($compile(clone[0])(scope));
+                        angular.element(document.querySelector('body')).append($compile(clone)(scope.$parent));
+                    })
+                }
+            },
+            controller: ['$scope', '$filter','$transclude','$compile', function ($scope, $filter,$transclude,$compile) {
+                $scope.isSelect = $filter('isSelect')($scope.source, $scope.insteadArr);
+
+                // console.log($transclude().contents());
+                // $scope.abc = $scope.$parent
+                $scope.abc = $scope.$parent.abc;
+                // $transclude($scope,function (clone,innerScope) {
+                //     // console.log(clone);
+                //     var compiler = $compile(clone)($scope.$parent);
+                //     angular.element(document.querySelector('body')).append(compiler);
+                // });
                 this.selected = function () {
                     console.log($scope.source);
                     $scope.$apply(function () {
-                        $scope.isSelect = $filter('isSelect')($scope.source,$scope.insteadArr);
+                        $scope.isSelect = $filter('isSelect')($scope.source, $scope.insteadArr);
                     })
                 }
             }]
         }
     }])
-    .directive('wxCheckboxItem',[function () {
+    .directive('wxCheckboxItem', [function () {
         return {
-            restrict:'EA',
-            require:'^wxCheckbox',
-            link:function (scope,ele,attrs,wxCheckboxCtr) {
+            restrict: 'EA',
+            require: '^wxCheckbox',
+            link: function (scope, ele, attrs, wxCheckboxCtr) {
                 ele.find('label').on('click', function (e) {
                     if (e.target.tagName != 'INPUT') {
                         return;
                     }
                     wxCheckboxCtr.selected();
                 });
+            }
+        }
+    }])
+    .directive('shadow', ['$window', '$document', function ($window, $document) {
+        return {
+            restrict: 'EA',
+            replace:true,
+            template: '<div class="shaw"></div>',
+            link: function (scope, ele, attrs) {
+
+                // 创建遮罩层
+                var shadowCss = {};
+
+                // 返回宽高
+                function getWH(name) {
+                    var WH = {
+                        wh: $document[0].body.offsetHeight,
+                        ww: window.screen.width,
+                        sh: $document[0].body.scrollHeight,
+                        st: $document[0].body.scrollTop
+                    }
+
+                    return WH[name] + 'px';
+                }
+                shadowCss.width = getWH('ww');
+                shadowCss.height = getWH('wh');
+                shadowCss.top = 0;
+                shadowCss.position = 'absolute';
+                shadowCss.backgroundColor = '#000';
+                shadowCss.opacity = .7;
+                shadowCss.zIndex = 1200;
+                ele.css(shadowCss);
+
+                // 添加遮罩层，同时隐藏下拉条
+                angular.element($document[0].body).append(ele).css('overflow','hidden');
+                ele.on('click',function () {
+                    ele.remove();
+                    angular.element($document[0].body).css('overflow','auto');
+                })
+
+                // scope.$on('open',function () {
+                //     angular.element($document[0].body).append(ele).css('overflow','hidden');
+                // })
+                //
+                // scope.$on('close',function () {
+                //     ele.remove();
+                //     angular.element($document[0].body).css('overflow','auto');
+                // })
+            }
+        }
+    }])
+    .directive('popupDiv',[function () {
+        return {
+            restrict:'EA',
+            compile:function () {
+
             }
         }
     }])
