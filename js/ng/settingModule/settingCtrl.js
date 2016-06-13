@@ -28,13 +28,14 @@ angular.module('setting.controllers', [])
             id: 'A-a',
             light: true,
             lightDay:  {
-                EE: 1,
+                
                 FF: 0,
                 GG: 0,
                 HH: 1,
                 II: 0,
                 JJ: 0,
-                KK: 0
+                KK: 0,
+				EE: 1
             },
             clockType: 0,
             clockType2: 1
@@ -103,11 +104,7 @@ angular.module('setting.controllers', [])
             typeNameStr: '重复',
             typeName: 'repeatday',
             attr: [
-                {
-                    nameStr: '周日',
-                    value: 1,
-                    id: 'EE'
-                },
+               
                 {
                     nameStr: '周一',
                     value: 1,
@@ -137,6 +134,11 @@ angular.module('setting.controllers', [])
                     nameStr: '周六',
                     value: 1,
                     id: 'KK'
+                },
+				 {
+                    nameStr: '周日',
+                    value: 1,
+                    id: 'EE'
                 }
             ]
         };

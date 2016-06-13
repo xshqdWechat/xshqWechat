@@ -98,21 +98,23 @@ angular.module('setting.directives', [])
 .directive('wxCheckbox', ['$compile', function ($compile) {
 		return {
 			restrict: 'EA',
-			template: '<span>{{isSelect}}</span><ng-transclude></ng-transclude><div shadow></div>',
+			template: '{{typeName}}<span>{{isSelect}}</span><ng-transclude></ng-transclude><div shadow></div>',
 			scope: {
+				typeName: '@',
 				source: '=',
 				insteadArr: '='
 			},
 			transclude: true,
+			link: function (scope, ele, attr) {
+				ele.on('click', function () {
+					scope.$broadcast('open', true)
+						//					scope.open = true;
+						//					scope.$apply();
+				})
+			},
 			controller: ['$scope', '$filter', '$transclude', '$compile', function ($scope, $filter, $transclude, $compile) {
+				$scope.open = false;
 				$scope.isSelect = $filter('isSelect')($scope.source, $scope.insteadArr);
-
-//				this.selected = function () {
-//					console.log($scope.source);
-//					$scope.$apply(function () {
-//						$scope.isSelect = $filter('isSelect')($scope.source, $scope.insteadArr);
-//					})
-//				}
             }]
 		}
     }])
@@ -120,12 +122,12 @@ angular.module('setting.directives', [])
 		return {
 			restrict: 'EA',
 			require: '^popupDiv',
-			link: function (scope, ele, attrs, wxCheckboxCtr) {
+			link: function (scope, ele, attrs, popupDivCtr) {
 				ele.find('label').on('click', function (e) {
 					if (e.target.tagName != 'INPUT') {
 						return;
 					}
-					wxCheckboxCtr.selected();
+					popupDivCtr.selected();
 				});
 			}
 		}
@@ -159,45 +161,56 @@ angular.module('setting.directives', [])
 				shadowCss.opacity = .7;
 				shadowCss.zIndex = 1200;
 				ele.css(shadowCss);
+				ele.remove();
 
 				// 添加遮罩层，同时隐藏下拉条
-				angular.element($document[0].body).append(ele).css('overflow', 'hidden');
-				ele.on('click', function () {
-					ele.remove();
-					angular.element($document[0].body).css('overflow', 'auto');
+
+				scope.$on('open', function (event, data) {
+					if (data) {
+						ele.css('top', getWH('st'));
+						angular.element($document[0].body).append(ele).css('overflow', 'hidden');
+						ele.on('click', function () {
+							ele.remove();
+							angular.element($document[0].body).css('overflow', 'auto');
+							
+						})
+					} else {
+						ele.remove();
+					}
 				})
 
-				// scope.$on('open',function () {
-				//     angular.element($document[0].body).append(ele).css('overflow','hidden');
-				// })
-				//
-				// scope.$on('close',function () {
-				//     ele.remove();
-				//     angular.element($document[0].body).css('overflow','auto');
-				// })
 			}
 		}
     }])
 	.directive('popupDiv', [function () {
 		return {
 			restrict: 'EA',
-			link:function(scope,ele,attr){
+			link: function (scope, ele, attr) {
+				ele.css({
+					'z-index': 1201,
+					'position':'absolute',
+					'display':'none',
+					'left':0,
+					'top':0,
+					'transtion':'top ease-in-tou .16s'
+				});
 				angular.element(document.querySelector('body')).append(ele);
+				scope.$on('open', function (event, data) {
+					if(data){
+						ele.css('display','block');
+					}else{
+						ele.css('display','none');
+					}
+				})
+				
 			},
-			controller:['$scope','$filter',function($scope,$filter){
+			controller: ['$scope', '$filter', function ($scope, $filter) {
 				this.selected = function () {
-					console.log($scope.source);
 					$scope.$apply(function () {
-						$scope.isSelect = $filter('isSelect')($scope.source, $scope.insteadArr);
+						$scope.$parent.isSelect = $filter('isSelect')($scope.$parent.source, $scope.$parent.insteadArr);
 					})
 				}
 			}]
-//			compile: function (ele, attr) {
-//				return function (scope, ele, attr) {
-//					angular.element(document.querySelector('body')).append(ele);
-//
-//				}
-//			}
 		}
     }])
 	// 测试
