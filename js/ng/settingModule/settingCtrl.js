@@ -28,7 +28,6 @@ angular.module('setting.controllers', [])
             id: 'A-a',
             light: true,
             lightDay:  {
-                
                 FF: 0,
                 GG: 0,
                 HH: 1,
@@ -38,7 +37,8 @@ angular.module('setting.controllers', [])
 				EE: 1
             },
             clockType: 0,
-            clockType2: 1
+            clockType2: 1,
+            tip:'备注'
         };
 
         $scope.dataFormat2 = {
@@ -142,8 +142,10 @@ angular.module('setting.controllers', [])
                 }
             ]
         };
-        $scope.switch = function () {
-
+        
+        $scope.tip = {
+            typeNameStr:'备注',
+            value:'初始值！'
         }
     }])
     .controller('clockSettingCtrl', ['$scope', function ($scope) {

@@ -1,12 +1,4 @@
 <ul class="clockOptions noClock">
-    <!--<li>-->
-    <!--<div test testr="test"></div>-->
-    <!--</li>-->
-    <!--    <li class="tapLi" id='repeatDay'>
-            重复
-            <span>周一 周二 周三 周四 周五 周六 </span>
-        </li>-->
-
     <!--单选-->
     <li>
         <div wx-radio source="dataFormat">
@@ -14,8 +6,7 @@
             <div wx-radio-item ng-repeat="attr in clockType.attr" index="{{$index}}">
                 <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat.clockType==attr.value}
                                                                   class="wxRadio"></i></span>
-                    <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}'
-                           ng-model="dataFormat.clockType">
+                    <input type="radio" name='{{clockType.typeName}}' value="{{attr.value}}" id='{{attr.id}}' ng-model="dataFormat.clockType">
                 </label>
             </div>
         </div>
@@ -27,8 +18,7 @@
             <div wx-radio-item ng-repeat="attr in clockType2.attr" index="{{$index}}">
                 <label for='{{attr.id}}'><span>{{attr.NameStr}}<i ng-class={'checkd':dataFormat.clockType2==attr.value}
                                                                   class="wxRadio"></i></span>
-                    <input type="radio" name='{{clockType2.typeName}}' value="{{attr.value}}" id='{{attr.id}}'
-                           ng-model="dataFormat.clockType2">
+                    <input type="radio" name='{{clockType2.typeName}}' value="{{attr.value}}" id='{{attr.id}}' ng-model="dataFormat.clockType2">
                 </label>
             </div>
         </div>
@@ -36,8 +26,7 @@
 
     <!--开关-->
     <li>
-        <div switch-btn class="light-btn" ng-class={'off':!dataFormat.light}
-             ng-click="dataFormat.light=!dataFormat.light">
+        <div switch-btn class="light-btn" ng-class={ 'off':!dataFormat.light} ng-click="dataFormat.light=!dataFormat.light">
             <div class="light-bg box-state">
                 <span class="flex-1"></span>
                 <span class="flex-1"></span>
@@ -50,24 +39,41 @@
     <li>
         <div wx-checkbox class="wxCheckboxtap" type-name={{checkboxData.typeNameStr}} source="dataFormat.lightDay" instead-arr="['周一','周二','周三','周四','周五','周六','周日']">
             <!--   重复弹出-->
-            <div popup-div class="repeatDay" id='rdpopUp'>
+            <div popup-div class="repeatDay">
                 <h6>{{checkboxData.typeNameStr}}</h6>
                 <ul class="myCheckbox">
                     <li wx-checkbox-item class='clearfix' ng-repeat="checkbox in checkboxData.attr">
                         <label for="{{checkbox.id}}"><span ng-bind="checkbox.nameStr"></span>
-                            <i class="wxCheckbox fr mt8" ng-class={'checkd':checkbox.value==dataFormat.lightDay[checkbox.id]}></i>
+                            <i class="wxCheckbox fr mt8" ng-class={ 'checkd':checkbox.value==dataFormat.lightDay[checkbox.id]}></i>
                             <input type="checkbox" name="{{checkboxData.typeName}}" id='{{checkbox.id}}' ng-true-value="{{checkbox.value}}" ng-false-value='0' ng-checked="dataFormat.lightDay[checkbox.id]" ng-model="dataFormat.lightDay[checkbox.id]">
                         </label>
                     </li>
                     <li class="twobtn">
-                        <a href="#" class="btnCancal">取消</a><a href="#" class="btnOK">确定</a>
+                        <cancle></cancle>
+                        <ok></ok>
                     </li>
                 </ul>
             </div>
         </div>
     </li>
-    <!--<li class="tapLi" id='tip'>-->
-    <!--备注-->
-    <!--<span></span>-->
-    <!--</li>-->
+    <li class="tapLi" id='tip'>
+        <div wx-tip type-name={{tip.typeNameStr}}>
+            <div popup-div class="repeatDay">
+                <h6>{{tip.typeNameStr}}</h6>
+                <ul>
+                    <li class="myText">
+                        <input type="text" placeholder="请输入闹钟备注" maxlength="13">
+                    </li>
+                    <li class="twobtn">
+                        <cancle></cancle>
+                        <ok></ok>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--
+    备注
+    <span></span>
+-->
+    </li>
 </ul>

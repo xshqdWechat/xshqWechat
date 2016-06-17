@@ -1,14 +1,17 @@
 angular.module('setting.service', [])
     .filter('isSelect', function () {
         function isSelectFitter(inputObj, instedArr) {
-            var selectArray = [], count = 0;
+            var selectArray = [],
+                count = 0,
+                repaetDayNum = 0;;
             for (var i in inputObj) {
                 if (inputObj[i]) {
                     selectArray.push(instedArr[count]);
+                    repaetDayNum++;
                 }
                 count++;
             }
-            return selectArray.join(' ');
+            return repaetDayNum == 7 ? '每天' : selectArray.join(' ');
         };
         isSelectFitter.$stateful = true;
         return isSelectFitter
@@ -17,8 +20,9 @@ angular.module('setting.service', [])
         function shadow() {
 
         }
+
         function initShadow() {
-            var wh,ww,shadowDiv;
+            var wh, ww, shadowDiv;
             wh = angular.element().
             shadowDiv = angular.element('<div class="shaw"></div>');
         }
@@ -27,7 +31,18 @@ angular.module('setting.service', [])
 
         };
         shadow.prototype.closeShadow = function () {
-            
+
         };
         return shadow;
+    })
+    .factory('tmpcache', function () {
+        var tmpScource;
+        var cache = {};
+            cache.getTmpSource = function(){
+                return JSON.parse(tmpScource);
+            };
+            cache.setTmpSource = function(source){
+                tmpScource = JSON.stringify(source);
+            };
+        return cache;
     })
