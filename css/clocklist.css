@@ -1,33 +1,84 @@
 .clocklist{
-    display: table;
     width: 100%;
 }
 .clocklist li{
-    display: table-row;
+    position: relative;
+    width: 100%;
     height: 68px;
+    background-color: #fff;
+    -webkit-transition: height ease-in 0.16s;
+    transition: height ease-in 0.16s;
 }
 
-.clocklist li>div{
+.clocklist .item-content:active {
+    background-color: #f0f0f0;
+}
+
+.item-content{
+    width: 100%;
+    height: 68px;
+    display: table;
+    -webkit-transition: transform ease-in 0.16s;
+    transition: transform ease-in 0.16s;
+}
+
+.item-content > div{
     display: table-cell;
     vertical-align: middle;
-    border-bottom: 1px solid #dfdfdf;
     font-size: 12px;
     color:#999;
-    width: 60%;
-    padding-left: 8px;
     line-height: 24px;
+    border-bottom: 1px solid #dfdfdf;
 }
 
-.clocklist li>div:first-child{
-    color: #4f4f4f;
-    font-size: 16px;
-    width: 15%;
-    text-align: center;
-    padding: 0 8px;
+.item-content .editClock{
+    width: 75%;
 }
 
-.clocklist li>div:last-child{
+
+.clocklist li .item-content>div:last-child{
     width: 25%;
     text-align: center;
     padding: 6px 8px 0 8px;
+}
+
+.tab{
+    display: table;
+    width: 100%;
+}
+.tr{
+    display: table-row;
+}
+
+.tr >div{
+    display: table-cell;
+    vertical-align: middle;
+     font-size: 12px;
+    color:#999;
+    padding-left: 8px;
+}
+
+.tr >div.clockTime{
+    color: #4f4f4f;
+    font-size: 16px;
+/*    width: 15%;*/
+    text-align: center;
+}
+
+span.deleteClock{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f2451b;
+    color: #fff;
+    font-size: 14px;
+    width: 25%;
+    text-align: center;
+    height: 68px;
+    line-height: 68px;
+    display: none;
+    border-bottom: 1px solid #dfdfdf;
+}
+span.deleteClock:active{
+    background-color: #ff9083;
 }

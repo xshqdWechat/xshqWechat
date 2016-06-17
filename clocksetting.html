@@ -192,16 +192,19 @@
                 function setRepeatDay(params) {
                     var repeatDay = $('input[name="repeatday"]');
                     var repeatStr = '';
-
+                    var repaetDayNum = 0;
                     for (var i = 0, len = repeatDay.length; i < len; i++) {
                         repeatDay[i].checked = params.repeatDay[repeatDay[i].id];
                         if (repeatDay[i].checked) {
                             $(repeatDay[i]).parent().find('.wxCheckbox').addClass('checkd');
                             repeatStr += repeatDay[i].value + ' ';
+                            repaetDayNum ++;
                         } else {
                             $(repeatDay[i]).parent().find('.wxCheckbox').removeClass('checkd');
                         }
                     }
+                    
+                    if(repaetDayNum == 7) repeatStr = '每天'；
 
                     $('#repeatDay').find('span').html(repeatStr);
                 }

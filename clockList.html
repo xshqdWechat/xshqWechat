@@ -11,61 +11,165 @@
 
     <!--	jquery-->
     <script type="text/javascript" src="lib/jquery.js"></script>
-    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-    <!--    <script type="text/javascript" src="js/clock.js"></script>-->
+    <script type="text/javascript" src="js/touch.js"></script>
 
 
 </head>
 
 <body>
     <ul class="clocklist">
+
         <li>
-            <div>09:55</div>
-            <div>
-                周一 周二 周三 周四 周五 周六 <div>起床 | 早上跑步</div>
-            </div>
-            <div>
-                <div class="light-btn off">
-                    <div class="light-bg box-state">
-                        <span class="flex-1"></span>
-                        <span class="flex-1"></span>
+            <div class="item-content">
+                <div class="editClock">
+                    <div class="tab">
+                        <div class="tr">
+                            <div class="clockTime">09:55</div>
+                            <div>周一 周二 周三 周四 周五 周六
+                                <div>起床 | 早上跑步</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="swip-btn switch-btn"></div>
+                </div>
+                <div>
+                    <div class="light-btn off">
+                        <div class="light-bg box-state">
+                            <span class="flex-1"></span>
+                            <span class="flex-1"></span>
+                        </div>
+                        <div class="swip-btn switch-btn"></div>
+                    </div>
                 </div>
             </div>
+            <span class="deleteClock">删除</span>
         </li>
+
         <li>
-            <div>09:55</div>
-            <div>
-                周一 周二 周三 周五 <div>起床 | 早上跑步</div>
-            </div>
-            <div>
-                <div class="light-btn off">
-                    <div class="light-bg box-state">
-                        <span class="flex-1"></span>
-                        <span class="flex-1"></span>
+            <div class="item-content">
+                <div class="editClock">
+                    <div class="tab">
+                        <div class="tr">
+                            <div class="clockTime">09:55</div>
+                            <div>周一 周二 周三 周四 周五 周六
+                                <div>起床 | 早上跑步</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="swip-btn switch-btn"></div>
+                </div>
+                <div>
+                    <div class="light-btn off">
+                        <div class="light-bg box-state">
+                            <span class="flex-1"></span>
+                            <span class="flex-1"></span>
+                        </div>
+                        <div class="swip-btn switch-btn"></div>
+                    </div>
                 </div>
             </div>
+            <span class="deleteClock">删除</span>
         </li>
+
+        <li>
+            <div class="item-content">
+                <div class="editClock">
+                    <div class="tab">
+                        <div class="tr">
+                            <div class="clockTime">09:55</div>
+                            <div>周一 周二 周三 周四 周五 周六
+                                <div>起床 | 早上跑步</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="light-btn off">
+                        <div class="light-bg box-state">
+                            <span class="flex-1"></span>
+                            <span class="flex-1"></span>
+                        </div>
+                        <div class="swip-btn switch-btn"></div>
+                    </div>
+                </div>
+            </div>
+            <span class="deleteClock">删除</span>
+        </li>
+        <li id='teset'>
+            testtest
+        </li>
+        <li id='teset2'>
+            testtest22222
+        </li>
+        
+        
+
+
     </ul>
+    <div style="color:#999;text-align:center;padding-top:16px;">若手环未连接，则设置无效！</div>
     <div class="pb38"></div>
     <a href="#" class="blueBtn pob">添加闹钟</a>
 
     <script type="text/javascript">
         $(function () {
             //		开关灯
-            $('.light-btn').each(function(i,e){
-                $(this).on('click',function(){
+            $('.light-btn').each(function (i, e) {
+                $(this).on('click', function () {
                     $(this).toggleClass('off');
-                    if($(this).hasClass('off')){
-                        console.log('关闭第'+i+'个闹钟!');
-                    }else{
-                        console.log('打开第'+i+'个闹钟!');
+                    if ($(this).hasClass('off')) {
+                        console.log('关闭第' + i + '个闹钟!');
+                    } else {
+                        console.log('打开第' + i + '个闹钟!');
                     }
                 })
             })
+
+            //            删除
+            $('.item-content').swipeLeft(function () {
+                var deleteW = $('.deleteClock').width();
+                $(this).css('transform', 'translateX(' + -deleteW + 'px)');
+                $(this).next('.deleteClock').css('display', 'block');
+                $('.item-content').not(this).trigger('swipeRight');
+            }).swipeRight(function () {
+                $(this).css('transform', 'translateX(0)');
+                $(this).next('.deleteClock').css('display', 'none');
+            })
+
+            //            删除
+            $('.deleteClock').each(function (i) {
+                $(this).tap(function () {
+                    var self = this;
+                    console.log('删除第' + i + '个闹钟');
+                    $(this).parents('li').height(0);
+                    setTimeout(function () {
+                        $(self).parents('li').remove();
+                    }, 160)
+                })
+            })
+
+            //            设置
+            $('.editClock').each(function (i) {
+                $(this).tap(function () {
+                    console.log(i);
+                })
+            })
+            
+            $('#teset').swipeLeft(function(e,t){
+                console.log(e);
+                console.log(t);
+            })
+            
+            var datastart;
+            $('#teset2').on('touchstart',function(){
+                datastart = new Date().getTime();
+         
+            })
+            $('#teset2').on('touchend',function(){
+                var datastart2 = new Date().getTime();
+                
+                console.log(datastart2-datastart);
+            })
+
+            
+
         })
     </script>
 </body>
